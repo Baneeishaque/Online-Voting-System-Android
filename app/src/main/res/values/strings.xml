@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Online Voting System</string>
+    <string name="admin">ADMIN</string>
+    <string name="voter">VOTER</string>
+    <string name="result">RESULT</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="button">Button</string>
+    <string name="login">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="signup">signup</string>
+    <string name="signin">signin</string>
+    <string name="already_have_an_account_sign_in_here">Already have an account? Sign in here</string>
+    <string name="not_registered_sign_up_here">Not registered? Sign Up here</string>
+    <string name="view_results">view results</string>
+    <string name="create_voter">create voter</string>
+    <string name="create_candidate">create candidate</string>
+    <string name="online_voting_system">Online Voting System</string>
+    <string name="logout">Logout</string>
+    <string name="candidate_form">Candidate Form</string>
+    <string name="voter_form">Voter Form</string>
+</resources>

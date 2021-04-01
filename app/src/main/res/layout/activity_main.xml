@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/tvElection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Malappuram District Legislative Assembly Election And Lok Sabha Election"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+
+        <Button
+            android:id="@+id/admin"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="#FF000000"
+            android:drawableEnd="@drawable/admin"
+            android:drawableRight="@drawable/admin"
+            android:padding="19dp"
+            android:text="@string/admin"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/voter"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/voter"
+            android:drawableRight="@drawable/voter"
+            android:padding="19dp"
+            android:text="@string/voter"
+            android:textStyle="bold"
+            app:backgroundTint="#FF000000" />
+
+        <Button
+            android:id="@+id/result"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/result"
+            android:drawableRight="@drawable/result"
+            android:padding="19dp"
+            android:text="@string/result"
+            android:textStyle="bold"
+            app:backgroundTint="#FF000000" />
+
+    </LinearLayout>
+</RelativeLayout>

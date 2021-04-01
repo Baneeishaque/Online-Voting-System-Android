@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btnSignIn" type="id" />
+    <item name="tvSignUp" type="id" />
+    <item name="btnSignUp" type="id" />
+    <item name="tvSignIn" type="id" />
+    <item name="logout" type="id" />
+    <item name="CandidateName" type="id" />
+    <item name="Name" type="id" />
+    <item name="EnterName" type="id" />
+</resources>
