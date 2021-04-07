@@ -1,4 +1,4 @@
-image: baneeishaque/gitpod-workspace-full-vnc-1366x768-tint2-pcmanfm-zsh-android-studio-gh-chrome
+image: baneeishaque/gitpod-workspace-full-vnc-1366x768-tint2-pcmanfm-zsh-android-studio-gh-chrome-scrcpy
 
 tasks:
   - prebuild: ./gradlew build
