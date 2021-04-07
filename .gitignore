@@ -386,5 +386,5 @@ gradle-app.setting
 .idea/encodings.xml
 #.idea/misc.xml
 
-/android-studio-config
-/chrome-config
+# /android-studio-config
+# /chrome-config
