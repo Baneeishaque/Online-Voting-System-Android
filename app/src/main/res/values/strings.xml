@@ -19,4 +19,7 @@
     <string name="logout">Logout</string>
     <string name="candidate_form">Candidate Form</string>
     <string name="voter_form">Voter Form</string>
+    <string name="get_otp">Get OTP</string>
+    <string name="voter_id">Voter ID</string>
+    <string name="phone_number">Phone Number</string>
 </resources>
