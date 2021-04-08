@@ -29,7 +29,10 @@ public class VoterOtpActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // TODO : Generate Otp, Send Otp, Store Otp
         buttonEnterOtp = findViewById(R.id.buttonEnterOtp);
+        // TODO : Auto Read Otp
+        // TODO : Match Otp, if valid forward; otherwise error message
         buttonEnterOtp.setOnClickListener(v -> startActivity(new Intent(activityContext, VoterVotingActivity.class)));
     }
 }

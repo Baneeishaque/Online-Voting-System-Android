@@ -33,6 +33,7 @@ public class VoterActivity extends AppCompatActivity {
         buttonGetOtp = findViewById(R.id.buttonGetOtp);
         buttonGetOtp.setOnClickListener(v -> {
 
+            // TODO : Get Voter Data from DB, if valid go; otherwise error message
             Intent intToAdmin = new Intent(activityContext, VoterOtpActivity.class);
             startActivity(intToAdmin);
         });
