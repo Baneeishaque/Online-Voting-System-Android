@@ -2,12 +2,11 @@ image: baneeishaque/gitpod-workspace-full-vnc-1366x768-tint2-pcmanfm-zsh-android
 
 tasks:
   - prebuild: ./gradlew build
-  # - init: /usr/bin/start-vnc-session.sh
+# - init: /usr/bin/start-vnc-session.sh
   - command: zsh
   - command: git clone --depth 1 "https://github.com/Baneeishaque/gitpod-workspace-full-vnc-1366x768-tint2-pcmanfm-zsh-android-studio.git" android-studio-config && mkdir -p ~/.config/Google && ln -s `pwd`/android-studio-config/AndroidStudio4.1-config ~/.config/Google/AndroidStudio4.1 && mkdir -p ~/.local/share/Google && ln -s `pwd`/android-studio-config/AndroidStudio4.1-local ~/.local/share/Google/AndroidStudio4.1 && cd /usr/local/android-studio/bin/ && ./studio.sh
-  # - init: gh auth login
-  # - command: git clone --depth 1 "https://gitlab.com/baneeishaque/gitpod-workspace-full-vnc-1366x768-tint2-pcmanfm-zsh-android-studio-gh-chrome-private.git" chrome-config && export CHROME_CONFIG_HOME="`pwd`/chrome-config" && google-chrome --disable-dev-shm-usage
-
+# - init: gh auth login
+# - command: git clone --depth 1 "https://gitlab.com/baneeishaque/gitpod-workspace-full-vnc-1366x768-tint2-pcmanfm-zsh-android-studio-gh-chrome-private.git" chrome-config && export CHROME_CONFIG_HOME="`pwd`/chrome-config" && google-chrome --disable-dev-shm-usage
 # Ports to expose on workspace startup
 ports:
   - port: 5900
@@ -20,7 +19,7 @@ ports:
     onOpen: ignore
   - port: 5037
     onOpen: ignore
-    
+
 github:
   prebuilds:
     # enable for all branches in this repo (defaults to false)
@@ -49,3 +48,5 @@ vscode:
     - caponetto.vscode-diff-viewer@1.1.1:2Hu660FHk2lvXzT4oy03lw==
     - ivanhofer.git-assistant@1.3.8:WW3vAnV4pUAg4B5REJ50/g==
     - adelphes.android-dev-ext@1.3.2:Corsm6bGBL7RCzNWjvZqZw==
+    - vscode.java@1.55.0:631fc4d56e614d7dd957052a72746766
+    
