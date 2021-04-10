@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -29,31 +28,40 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
-import java.util.Random;
 
-public class CCandidateActivity extends AppCompatActivity {
+public class CreateCandidateActivity extends AppCompatActivity {
 
     //variables
     TextView CandidateForm, CandidateName, Address, Dob, Age, MobileNumber, VoterId, AadharNumber, PartyName, Parliament, Assembly;
+
     EditText EnterName, EnterAddress, EnterAge, EnterMobile, EnterVoterId, EnterAadhar;
+
     MaterialButton submit;
+
     String genderType;
+
     String dob;
+
     //writing data to firebase
     FirebaseDatabase rootNode;
     DatabaseReference reference;
+
     //for gender
     RadioButton Male, Female, Other;
     RadioGroup radioGroup;
+
     //for dependant spinner
     Spinner spinner_parliament, spinner_assembly;
+
     ArrayList<String> arrayList_parliament;
     ArrayAdapter<String> arrayAdapter_parliament;
+
     ArrayList<String> arrayList_malappuram, arrayList_ponnani, arrayList_wayanad;
     ArrayAdapter<String> arrayAdapter_assembly;
+
     //for party name spinner view
     private ArrayList<PartyItem> mPartyList;
-    private PartyAdapter mAdapter;
+
     //for dob
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
@@ -61,10 +69,11 @@ public class CCandidateActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_c_candidate);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(CCandidateActivity.this, R.color.colorAccent));
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_candidate_candidate);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(CreateCandidateActivity.this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
         //connects all xml elements to CCandidateActivity.java
@@ -101,7 +110,6 @@ public class CCandidateActivity extends AppCompatActivity {
         arrayAdapter_parliament = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_parliament);
         spinner_parliament.setAdapter(arrayAdapter_parliament);
 
-
         arrayList_malappuram = new ArrayList<>();
         arrayList_malappuram.add("Malappuram");
         arrayList_malappuram.add("Manjeri");
@@ -125,51 +133,55 @@ public class CCandidateActivity extends AppCompatActivity {
         arrayList_wayanad.add("Nilambur");
 
         spinner_parliament.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 if (position == 0) {
+
                     arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_malappuram);
                 }
                 if (position == 1) {
+
                     arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_ponnani);
                 }
                 if (position == 2) {
+
                     arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_wayanad);
                 }
-
                 spinner_assembly.setAdapter(arrayAdapter_assembly);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
         //for dob
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
-        dateButton.setText(getTodaysDate());
+        dateButton.setText(getTodayDate());
 
         //for party name spinner view
         initList();
         Spinner spinnerParties = findViewById(R.id.spinner_parties);
-        mAdapter = new PartyAdapter(this, mPartyList);
+        PartyAdapter mAdapter = new PartyAdapter(this, mPartyList);
         spinnerParties.setAdapter(mAdapter);
         spinnerParties.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 PartyItem clickedItem = (PartyItem) parent.getItemAtPosition(position);
                 String clickedPartyName = clickedItem.getPartyName();
-                Toast.makeText(CCandidateActivity.this, clickedPartyName + "selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateCandidateActivity.this, clickedPartyName + "selected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
+
         //for gender
         genderType = "Male";
         Male = (RadioButton) findViewById(R.id.male);
@@ -180,62 +192,61 @@ public class CCandidateActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
 
             if (Male.isChecked()) {
+
                 genderType = "Male";
-                Toast.makeText(CCandidateActivity.this, "Male", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateCandidateActivity.this, "Male", Toast.LENGTH_SHORT).show();
+
             } else if (Female.isChecked()) {
+
                 genderType = "Female";
-                Toast.makeText(CCandidateActivity.this, "Female", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateCandidateActivity.this, "Female", Toast.LENGTH_SHORT).show();
+
             } else {
+
                 genderType = "Other";
-                Toast.makeText(CCandidateActivity.this, "Other", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateCandidateActivity.this, "Other", Toast.LENGTH_SHORT).show();
             }
         });
 
         //Save data in firebase on button click
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    rootNode = FirebaseDatabase.getInstance();
-                    reference = rootNode.getReference("candidates");
+        submit.setOnClickListener(v -> {
 
-                    //Get all the values
-                    String name = EnterName.getText().toString();
-                    String address = EnterAddress.getText().toString();
-                    String age = EnterAge.getText().toString();
-                    String mobileNumber = EnterMobile.getText().toString();
-                    String voterId = EnterVoterId.getText().toString();
-                    String aadharNumber = EnterAadhar.getText().toString();
-                    PartyItem party = (PartyItem) spinnerParties.getSelectedItem();
-                    String partyName = party.getPartyName();
-                    String parlimentName = spinner_parliament.getSelectedItem().toString();
-                    String assemblyName = spinner_assembly.getSelectedItem().toString();
-                    dob = dateButton.getText().toString();
+            try {
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("candidates");
 
-                    CandidateInfo info = new CandidateInfo(name, address, age, mobileNumber,
-                            voterId, aadharNumber, parlimentName, partyName, assemblyName, dob, genderType);
+                //Get all the values
+                String name = EnterName.getText().toString();
+                String address = EnterAddress.getText().toString();
+                String age = EnterAge.getText().toString();
+                String mobileNumber = EnterMobile.getText().toString();
+                String voterId = EnterVoterId.getText().toString();
+                String aadharNumber = EnterAadhar.getText().toString();
+                PartyItem party = (PartyItem) spinnerParties.getSelectedItem();
+                String partyName = party.getPartyName();
+                String parlimentName = spinner_parliament.getSelectedItem().toString();
+                String assemblyName = spinner_assembly.getSelectedItem().toString();
+                dob = dateButton.getText().toString();
 
-//                    reference.setValue(info);
+                CandidateInfo info = new CandidateInfo(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, partyName, assemblyName, dob, genderType);
 
-                    Random r = new Random();
-                    Log.d("DATe,", dateButton.getText().toString());
+                Log.d(ApplicationSpecification.name, "DATE : " + dateButton.getText().toString());
 
-                    reference.child("Candidate" + reference.push().getKey()).setValue(info);
-                    Toast.makeText(CCandidateActivity.this, "Candidate added successfully", Toast.LENGTH_SHORT).show();
-                    Log.d("log---", info.toString());
+                reference.child("Candidate" + reference.push().getKey()).setValue(info);
+                Toast.makeText(CreateCandidateActivity.this, "Candidate added successfully", Toast.LENGTH_SHORT).show();
+                Log.d(ApplicationSpecification.name, "info : " + info.toString());
 
-                } catch (Exception e) {
-                    Toast.makeText(CCandidateActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                    Log.d("log---", e.toString());
+            } catch (Exception e) {
 
-                }
+                Toast.makeText(CreateCandidateActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
             }
         });
-
     }
 
     //for dob
-    private String getTodaysDate() {
+    private String getTodayDate() {
+
         Calendar cal = Calendar.getInstance();
 
         int year = cal.get(Calendar.YEAR);
@@ -246,14 +257,14 @@ public class CCandidateActivity extends AppCompatActivity {
     }
 
     private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(day, month, year);
-                dateButton.setText(date);
-            }
+
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+
+            month = month + 1;
+            String date = makeDateString(day, month, year);
+            dateButton.setText(date);
         };
+
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -265,10 +276,12 @@ public class CCandidateActivity extends AppCompatActivity {
     }
 
     private String makeDateString(int day, int month, int year) {
+
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
     private String getMonthFormat(int month) {
+
         if (month == 1)
             return "JAN";
         if (month == 2)
@@ -304,6 +317,7 @@ public class CCandidateActivity extends AppCompatActivity {
 
     //for party name spinner view
     private void initList() {
+
         mPartyList = new ArrayList<>();
         mPartyList.add(new PartyItem("LDF", R.drawable.ldf));
         mPartyList.add(new PartyItem("UDF", R.drawable.udf));

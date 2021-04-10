@@ -20,12 +20,11 @@ public class HomeActivity extends AppCompatActivity {
     MaterialButton createCandidate;
     MaterialButton createVoter;
     MaterialButton viewResults;
-    FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -34,23 +33,30 @@ public class HomeActivity extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.Logout);
         btnLogout.setOnClickListener(v -> {
+
             FirebaseAuth.getInstance().signOut();
             Intent intToAdmin = new Intent(HomeActivity.this, AdminActivity.class);
             startActivity(intToAdmin);
         });
+
         createCandidate = findViewById(R.id.Candidate);
         createCandidate.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, CCandidateActivity.class);
+
+            Intent intent = new Intent(HomeActivity.this, CreateCandidateActivity.class);
             startActivity(intent);
         });
+
         createVoter = findViewById(R.id.Voter);
         createVoter.setOnClickListener(v -> {
+
             Intent intent = new Intent(HomeActivity.this, CVoterActivity.class);
             startActivity(intent);
         });
+
         viewResults = findViewById(R.id.Results);
         viewResults.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, CResultsActivity.class);
+
+            Intent intent = new Intent(HomeActivity.this, ResultActivity.class);
             startActivity(intent);
         });
     }

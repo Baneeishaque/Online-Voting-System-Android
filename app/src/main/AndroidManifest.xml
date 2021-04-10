@@ -11,7 +11,7 @@
         android:theme="@style/Theme.OnlineVotingSystem">
         <activity android:name=".VoterVotingActivity"></activity>
         <activity android:name=".VoterOtpActivity" />
-        <activity android:name=".CCandidateActivity" />
+        <activity android:name=".CreateCandidateActivity" />
         <activity
             android:name=".CResultsActivity"
             android:parentActivityName=".HomeActivity" />
