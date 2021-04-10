@@ -18,6 +18,9 @@ public class VoterInfoModal {
         this.gender = gender;
     }
 
+    public VoterInfoModal() {
+    }
+
     public String getDOB() {
         return DOB;
     }
@@ -96,5 +99,21 @@ public class VoterInfoModal {
 
     public void setAssemblyName(String assemblyName) {
         this.assemblyName = assemblyName;
+    }
+
+    @Override
+    public String toString() {
+        return "VoterInfoModal{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", age='" + age + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", voterId='" + voterId + '\'' +
+                ", aadharNumber='" + aadharNumber + '\'' +
+                ", parliamentName='" + parliamentName + '\'' +
+                ", assemblyName='" + assemblyName + '\'' +
+                ", DOB='" + DOB + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }

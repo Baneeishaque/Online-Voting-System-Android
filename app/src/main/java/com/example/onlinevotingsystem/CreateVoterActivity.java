@@ -44,7 +44,7 @@ public class CreateVoterActivity extends AppCompatActivity {
 
     //writing data to firebase
     FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    DatabaseReference votersNode;
 
     //for gender
     RadioButton Male, Female, Other;
@@ -187,7 +187,7 @@ public class CreateVoterActivity extends AppCompatActivity {
 
             try {
                 rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("voters");
+                votersNode = rootNode.getReference("voters");
 
                 //Get all the values
                 String name = EnterName.getText().toString();
@@ -204,7 +204,8 @@ public class CreateVoterActivity extends AppCompatActivity {
 
                 Log.d(ApplicationSpecification.name, "Date : "+dateButton.getText().toString());
 
-                reference.child("Voter" + reference.push().getKey()).setValue(info);
+                //TODO : Avoid duplicate voter Ids
+                votersNode.child(voterId).setValue(info);
                 Toast.makeText(CreateVoterActivity.this, "Voter added successfully", Toast.LENGTH_SHORT).show();
                 Log.d(ApplicationSpecification.name, "info : "+info.toString());
 
