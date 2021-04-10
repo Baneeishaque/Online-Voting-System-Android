@@ -14,19 +14,32 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/text_view_enter_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16dp"
+            android:text="@string/enter_otp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_24sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/otpView"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.mukesh.OtpView
             android:id="@+id/otpView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/buttonEnterOtp"
             android:textColor="@android:color/black"
             app:OtpItemCount="6"
             app:OtpLineColor="@color/black"
-            app:OtpViewType="rectangle" />
+            app:OtpViewType="rectangle"
+            app:layout_constraintBottom_toTopOf="@id/buttonEnterOtp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_enter_otp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonEnterOtp"
@@ -38,7 +51,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:padding="16dp"
-            android:text="@string/enter_otp"
+            android:text="@string/validate_otp"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -48,6 +61,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/otpView" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonRegenerateOtp"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:padding="16dp"
+            android:text="@string/regenerate_otp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/black"
+            app:cornerRadius="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonEnterOtp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

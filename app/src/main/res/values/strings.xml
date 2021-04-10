@@ -22,11 +22,13 @@
     <string name="get_otp">Get OTP</string>
     <string name="voter_id">Voter ID</string>
     <string name="phone_number">Phone Number</string>
-    <string name="enter_otp">Enter Otp</string>
     <string name="candidate_name">Candidate Name</string>
     <string name="todo">TODO</string>
     <string name="vote">Vote</string>
     <string name="_25">25</string>
     <string name="candidate_wins">Candidate1 Wins</string>
     <string name="voting_results">Voting Results</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="validate_otp">Validate Otp</string>
+    <string name="regenerate_otp">Regenerate Otp</string>
 </resources>
