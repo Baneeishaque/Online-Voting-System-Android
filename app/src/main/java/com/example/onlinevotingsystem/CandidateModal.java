@@ -8,6 +8,7 @@ public class CandidateModal {
     public String name;
 
     public CandidateModal(Drawable partySymbol, String name) {
+
         this.partySymbol = partySymbol;
         this.name = name;
     }

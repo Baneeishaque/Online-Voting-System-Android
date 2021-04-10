@@ -13,9 +13,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class PartyAdapter extends ArrayAdapter {
+public class PartyArrayAdapter extends ArrayAdapter {
 
-    public PartyAdapter(Context context, ArrayList<PartyItem> partyList) {
+    public PartyArrayAdapter(Context context, ArrayList<PartyModal> partyList) {
+
         super(context, 0, partyList);
     }
 
@@ -27,20 +28,20 @@ public class PartyAdapter extends ArrayAdapter {
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         return initView(position, convertView, parent);
     }
 
     private View initView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.party_spinner_row, parent, false
-            );
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.party_spinner_row, parent, false);
         }
 
         ImageView imageViewLdf = convertView.findViewById(R.id.image_view_ldf);
         TextView textViewLdf = convertView.findViewById(R.id.text_view_ldf);
 
-        PartyItem currentItem = (PartyItem) getItem(position);
+        PartyModal currentItem = (PartyModal) getItem(position);
 
         if (currentItem != null) {
             imageViewLdf.setImageResource(currentItem.getPartyImage());
@@ -48,6 +49,4 @@ public class PartyAdapter extends ArrayAdapter {
         }
         return convertView;
     }
-
-
 }

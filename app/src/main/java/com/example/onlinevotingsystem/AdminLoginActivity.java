@@ -4,26 +4,21 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class AdminloginActivity extends AppCompatActivity {
+public class AdminLoginActivity extends AppCompatActivity {
 
     EditText Email;
     EditText Password;
@@ -40,7 +35,7 @@ public class AdminloginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adminlogin);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(AdminloginActivity.this, R.color.colorAccent));
+        getWindow().setStatusBarColor(ContextCompat.getColor(AdminLoginActivity.this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -56,13 +51,13 @@ public class AdminloginActivity extends AppCompatActivity {
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
             if (mFirebaseUser != null) {
 
-                Toast.makeText(AdminloginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(AdminloginActivity.this, HomeActivity.class);
+                Toast.makeText(AdminLoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(AdminLoginActivity.this, HomeActivity.class);
                 startActivity(i);
 
             } else {
 
-                Toast.makeText(AdminloginActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminLoginActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -73,7 +68,7 @@ public class AdminloginActivity extends AppCompatActivity {
 
             if (email.isEmpty() && pwd.isEmpty()) {
 
-                Toast.makeText(AdminloginActivity.this, "Fields Are Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminLoginActivity.this, "Fields Are Empty!", Toast.LENGTH_SHORT).show();
 
             } else if (email.isEmpty()) {
 
@@ -87,15 +82,15 @@ public class AdminloginActivity extends AppCompatActivity {
 
             } else {
 
-                mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(AdminloginActivity.this, task -> {
+                mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(AdminLoginActivity.this, task -> {
 
                     if (!task.isSuccessful()) {
 
-                        Toast.makeText(AdminloginActivity.this, "Login Error, Please Login Again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminLoginActivity.this, "Login Error, Please Login Again", Toast.LENGTH_SHORT).show();
 
                     } else {
 
-                        Intent intToMain = new Intent(AdminloginActivity.this, HomeActivity.class);
+                        Intent intToMain = new Intent(AdminLoginActivity.this, HomeActivity.class);
                         startActivity(intToMain);
                     }
                 });
@@ -107,7 +102,7 @@ public class AdminloginActivity extends AppCompatActivity {
 
         tvSignUp.setOnClickListener(v -> {
 
-            Intent intSignUp = new Intent(AdminloginActivity.this, AdminActivity.class);
+            Intent intSignUp = new Intent(AdminLoginActivity.this, AdminActivity.class);
             startActivity(intSignUp);
         });
     }

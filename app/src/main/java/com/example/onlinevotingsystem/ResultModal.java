@@ -9,6 +9,7 @@ public class ResultModal {
     public int noOfVotes;
 
     public ResultModal(Drawable partySymbol, String name, int noOfVotes) {
+
         this.partySymbol = partySymbol;
         this.name = name;
         this.noOfVotes = noOfVotes;
@@ -31,6 +32,7 @@ public class ResultModal {
     }
 
     public int getNoOfVotes() {
+
         return noOfVotes;
     }
 

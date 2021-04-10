@@ -1,14 +1,11 @@
 package com.example.onlinevotingsystem;
 
-public class CandidateInfo {
+public class CandidateInfoModal {
 
     String name, address, age, mobileNumber, voterId, aadharNumber, parliamentName, partyName, assemblyName, DOB, gender;
 
-    public CandidateInfo() {
-    }
+    public CandidateInfoModal(String name, String address, String age, String mobileNumber, String voterId, String aadharNumber, String parliamentName, String partyName, String assemblyName, String DOB, String gender) {
 
-
-    public CandidateInfo(String name, String address, String age, String mobileNumber, String voterId, String aadharNumber, String parliamentName, String partyName, String assemblyName, String DOB, String gender) {
         this.name = name;
         this.address = address;
         this.age = age;

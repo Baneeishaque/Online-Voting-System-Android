@@ -1,10 +1,12 @@
 package com.example.onlinevotingsystem;
 
-public class PartyItem {
+public class PartyModal {
+
     private String mPartyName;
     private int mPartyImage;
 
-    public PartyItem(String partyName, int partyImage) {
+    public PartyModal(String partyName, int partyImage) {
+
         mPartyName = partyName;
         mPartyImage = partyImage;
     }

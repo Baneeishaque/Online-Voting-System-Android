@@ -9,18 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineVotingSystem">
-        <activity android:name=".VoterVotingActivity"></activity>
+        <activity android:name=".VoterVotingActivity" />
         <activity android:name=".VoterOtpActivity" />
         <activity android:name=".CreateCandidateActivity" />
         <activity
-            android:name=".CResultsActivity"
-            android:parentActivityName=".HomeActivity" />
-        <activity
-            android:name=".CVoterActivity"
+            android:name=".CreateVoterActivity"
             android:parentActivityName=".HomeActivity" />
         <activity android:name=".HomeActivity" />
         <activity
-            android:name=".AdminloginActivity"
+            android:name=".AdminLoginActivity"
             android:parentActivityName=".AdminActivity" />
         <activity
             android:name=".ResultActivity"

@@ -60,7 +60,7 @@ public class CreateCandidateActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter_assembly;
 
     //for party name spinner view
-    private ArrayList<PartyItem> mPartyList;
+    private ArrayList<PartyModal> mPartyList;
 
     //for dob
     private DatePickerDialog datePickerDialog;
@@ -76,7 +76,6 @@ public class CreateCandidateActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(CreateCandidateActivity.this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
-        //connects all xml elements to CCandidateActivity.java
         CandidateForm = findViewById(R.id.CandidateForm);
         CandidateName = findViewById(R.id.CandidateName);
         Address = findViewById(R.id.Address);
@@ -165,14 +164,14 @@ public class CreateCandidateActivity extends AppCompatActivity {
         //for party name spinner view
         initList();
         Spinner spinnerParties = findViewById(R.id.spinner_parties);
-        PartyAdapter mAdapter = new PartyAdapter(this, mPartyList);
+        PartyArrayAdapter mAdapter = new PartyArrayAdapter(this, mPartyList);
         spinnerParties.setAdapter(mAdapter);
         spinnerParties.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                PartyItem clickedItem = (PartyItem) parent.getItemAtPosition(position);
+                PartyModal clickedItem = (PartyModal) parent.getItemAtPosition(position);
                 String clickedPartyName = clickedItem.getPartyName();
                 Toast.makeText(CreateCandidateActivity.this, clickedPartyName + "selected", Toast.LENGTH_SHORT).show();
             }
@@ -222,13 +221,13 @@ public class CreateCandidateActivity extends AppCompatActivity {
                 String mobileNumber = EnterMobile.getText().toString();
                 String voterId = EnterVoterId.getText().toString();
                 String aadharNumber = EnterAadhar.getText().toString();
-                PartyItem party = (PartyItem) spinnerParties.getSelectedItem();
+                PartyModal party = (PartyModal) spinnerParties.getSelectedItem();
                 String partyName = party.getPartyName();
                 String parlimentName = spinner_parliament.getSelectedItem().toString();
                 String assemblyName = spinner_assembly.getSelectedItem().toString();
                 dob = dateButton.getText().toString();
 
-                CandidateInfo info = new CandidateInfo(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, partyName, assemblyName, dob, genderType);
+                CandidateInfoModal info = new CandidateInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, partyName, assemblyName, dob, genderType);
 
                 Log.d(ApplicationSpecification.name, "DATE : " + dateButton.getText().toString());
 
@@ -319,8 +318,8 @@ public class CreateCandidateActivity extends AppCompatActivity {
     private void initList() {
 
         mPartyList = new ArrayList<>();
-        mPartyList.add(new PartyItem("LDF", R.drawable.ldf));
-        mPartyList.add(new PartyItem("UDF", R.drawable.udf));
-        mPartyList.add(new PartyItem("NDA", R.drawable.nda));
+        mPartyList.add(new PartyModal("LDF", R.drawable.ldf));
+        mPartyList.add(new PartyModal("UDF", R.drawable.udf));
+        mPartyList.add(new PartyModal("NDA", R.drawable.nda));
     }
 }

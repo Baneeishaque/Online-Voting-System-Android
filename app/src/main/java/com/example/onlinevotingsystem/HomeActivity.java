@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         createVoter = findViewById(R.id.Voter);
         createVoter.setOnClickListener(v -> {
 
-            Intent intent = new Intent(HomeActivity.this, CVoterActivity.class);
+            Intent intent = new Intent(HomeActivity.this, CreateVoterActivity.class);
             startActivity(intent);
         });
 

@@ -64,6 +64,7 @@ public class CandidatesRecyclerViewAdaptor extends RecyclerView.Adapter<Recycler
     }
 
     public interface OnItemClickListener {
+
         void onItemClick(View view, int position, CandidateModal candidate);
     }
 

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -29,16 +28,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
-import java.util.Random;
 
-public class CVoterActivity extends AppCompatActivity {
+public class CreateVoterActivity extends AppCompatActivity {
 
     //variables
     TextView VoterForm, VoterName, Address, Dob, Age, MobileNumber, VoterId, AadharNumber, Parliament, Assembly;
+
     EditText EnterName, EnterAddress, EnterAge, EnterMobile, EnterVoterId, EnterAadhar;
+
     MaterialButton submit;
+
     String genderType;
+
     String dob;
+
     //writing data to firebase
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -46,12 +49,15 @@ public class CVoterActivity extends AppCompatActivity {
     //for gender
     RadioButton Male, Female, Other;
     RadioGroup radioGroup;
+
     //for dependant spinner
     Spinner spinner_parliament, spinner_assembly;
     ArrayList<String> arrayList_parliament;
     ArrayAdapter<String> arrayAdapter_parliament;
+
     ArrayList<String> arrayList_malappuram, arrayList_ponnani, arrayList_wayanad;
     ArrayAdapter<String> arrayAdapter_assembly;
+
     //for dob
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
@@ -59,13 +65,13 @@ public class CVoterActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cvoter);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(CVoterActivity.this, R.color.colorAccent));
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_voter);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(CreateVoterActivity.this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
-        //connects all xml elements to CCandidateActivity.java
         VoterForm = findViewById(R.id.VoterForm);
         VoterName = findViewById(R.id.VoterName);
         Address = findViewById(R.id.Address);
@@ -98,7 +104,6 @@ public class CVoterActivity extends AppCompatActivity {
         arrayAdapter_parliament = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_parliament);
         spinner_parliament.setAdapter(arrayAdapter_parliament);
 
-
         arrayList_malappuram = new ArrayList<>();
         arrayList_malappuram.add("Malappuram");
         arrayList_malappuram.add("Manjeri");
@@ -122,16 +127,20 @@ public class CVoterActivity extends AppCompatActivity {
         arrayList_wayanad.add("Nilambur");
 
         spinner_parliament.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 if (position == 0) {
+
                     arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_malappuram);
                 }
                 if (position == 1) {
+
                     arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_ponnani);
                 }
                 if (position == 2) {
+
                     arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_wayanad);
                 }
 
@@ -140,14 +149,13 @@ public class CVoterActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
         //for dob
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
-        dateButton.setText(getTodaysDate());
+        dateButton.setText(getTodayDate());
 
         //for gender
         Male = (RadioButton) findViewById(R.id.male);
@@ -158,60 +166,59 @@ public class CVoterActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
 
             if (Male.isChecked()) {
+
                 genderType = "Male";
-                Toast.makeText(CVoterActivity.this, "Male", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateVoterActivity.this, "Male", Toast.LENGTH_SHORT).show();
+
             } else if (Female.isChecked()) {
+
                 genderType = "Female";
-                Toast.makeText(CVoterActivity.this, "Female", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateVoterActivity.this, "Female", Toast.LENGTH_SHORT).show();
+
             } else {
+
                 genderType = "Other";
-                Toast.makeText(CVoterActivity.this, "Other", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateVoterActivity.this, "Other", Toast.LENGTH_SHORT).show();
             }
         });
 
         //Save data in firebase on button click
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    rootNode = FirebaseDatabase.getInstance();
-                    reference = rootNode.getReference("voters");
+        submit.setOnClickListener(v -> {
 
-                    //Get all the values
-                    String name = EnterName.getText().toString();
-                    String address = EnterAddress.getText().toString();
-                    String age = EnterAge.getText().toString();
-                    String mobileNumber = EnterMobile.getText().toString();
-                    String voterId = EnterVoterId.getText().toString();
-                    String aadharNumber = EnterAadhar.getText().toString();
-                    String parlimentName = spinner_parliament.getSelectedItem().toString();
-                    String assemblyName = spinner_assembly.getSelectedItem().toString();
-                    dob = dateButton.getText().toString();
+            try {
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("voters");
 
-                    VoterInfo info = new VoterInfo(name, address, age, mobileNumber,
-                            voterId, aadharNumber, parlimentName, assemblyName, dob, genderType);
+                //Get all the values
+                String name = EnterName.getText().toString();
+                String address = EnterAddress.getText().toString();
+                String age = EnterAge.getText().toString();
+                String mobileNumber = EnterMobile.getText().toString();
+                String voterId = EnterVoterId.getText().toString();
+                String aadharNumber = EnterAadhar.getText().toString();
+                String parlimentName = spinner_parliament.getSelectedItem().toString();
+                String assemblyName = spinner_assembly.getSelectedItem().toString();
+                dob = dateButton.getText().toString();
 
-//                    reference.setValue(info);
+                VoterInfoModal info = new VoterInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, assemblyName, dob, genderType);
 
-                    Random r = new Random();
-                    Log.d("DATe,", dateButton.getText().toString());
+                Log.d(ApplicationSpecification.name, "Date : "+dateButton.getText().toString());
 
-                    reference.child("Voter" + reference.push().getKey()).setValue(info);
-                    Toast.makeText(CVoterActivity.this, "Voter added successfully", Toast.LENGTH_SHORT).show();
-                    Log.d("log---", info.toString());
+                reference.child("Voter" + reference.push().getKey()).setValue(info);
+                Toast.makeText(CreateVoterActivity.this, "Voter added successfully", Toast.LENGTH_SHORT).show();
+                Log.d(ApplicationSpecification.name, "info : "+info.toString());
 
-                } catch (Exception e) {
-                    Toast.makeText(CVoterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                    Log.d("log---", e.toString());
+            } catch (Exception e) {
 
-                }
+                Toast.makeText(CreateVoterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                Log.d(ApplicationSpecification.name, "Exception : "+e.toString());
             }
         });
-
     }
 
     //for dob
-    private String getTodaysDate() {
+    private String getTodayDate() {
+
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -221,14 +228,14 @@ public class CVoterActivity extends AppCompatActivity {
     }
 
     private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(day, month, year);
-                dateButton.setText(date);
-            }
+
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+
+            month = month + 1;
+            String date = makeDateString(day, month, year);
+            dateButton.setText(date);
         };
+
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -240,10 +247,12 @@ public class CVoterActivity extends AppCompatActivity {
     }
 
     private String makeDateString(int day, int month, int year) {
+
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
     private String getMonthFormat(int month) {
+
         if (month == 1)
             return "JAN";
         if (month == 2)
