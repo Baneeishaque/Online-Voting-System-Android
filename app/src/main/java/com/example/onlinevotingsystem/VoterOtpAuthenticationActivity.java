@@ -9,13 +9,12 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.material.button.MaterialButton;
 
 import java.util.Objects;
 
-public class VoterOtpActivity extends AppCompatActivity {
+public class VoterOtpAuthenticationActivity extends AppCompatActivity {
 
     MaterialButton buttonEnterOtp;
     Context activityContext = this;
@@ -25,7 +24,7 @@ public class VoterOtpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_voter_otp);
+        setContentView(R.layout.activity_voter_otp_authentication);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));

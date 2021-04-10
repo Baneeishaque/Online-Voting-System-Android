@@ -71,7 +71,7 @@ public class CreateCandidateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_candidate_candidate);
+        setContentView(R.layout.activity_create_candidate);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(CreateCandidateActivity.this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));

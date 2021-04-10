@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class AdminActivity extends AppCompatActivity {
+public class AdminAuthenticationActivity extends AppCompatActivity {
 
     EditText Email;
     EditText Password;
@@ -32,9 +32,9 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_admin_authentication);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(AdminActivity.this, R.color.colorAccent));
+        getWindow().setStatusBarColor(ContextCompat.getColor(AdminAuthenticationActivity.this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -51,7 +51,7 @@ public class AdminActivity extends AppCompatActivity {
 
             if (email.isEmpty() && pwd.isEmpty()) {
 
-                Toast.makeText(AdminActivity.this, "Fields Are Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminAuthenticationActivity.this, "Fields Are Empty!", Toast.LENGTH_SHORT).show();
 
             } else if (email.isEmpty()) {
 
@@ -65,15 +65,15 @@ public class AdminActivity extends AppCompatActivity {
 
             } else {
 
-                mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(AdminActivity.this, task -> {
+                mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(AdminAuthenticationActivity.this, task -> {
 
                     if (!task.isSuccessful()) {
 
-                        Toast.makeText(AdminActivity.this, "SignUp Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminAuthenticationActivity.this, "SignUp Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
 
                     } else {
 
-                        startActivity(new Intent(AdminActivity.this, HomeActivity.class));
+                        startActivity(new Intent(AdminAuthenticationActivity.this, AdminHomeActivity.class));
                     }
                 });
 
@@ -86,7 +86,7 @@ public class AdminActivity extends AppCompatActivity {
 
         tvSignIn.setOnClickListener(v -> {
 
-            Intent i = new Intent(AdminActivity.this, AdminLoginActivity.class);
+            Intent i = new Intent(AdminAuthenticationActivity.this, AdminLoginActivity.class);
             startActivity(i);
         });
     }

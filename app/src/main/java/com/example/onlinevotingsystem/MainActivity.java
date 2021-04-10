@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openAdminActivity() {
-        Intent intent = new Intent(this, AdminActivity.class);
+        Intent intent = new Intent(this, AdminAuthenticationActivity.class);
         startActivity(intent);
     }
 
     public void openVoterActivity() {
-        Intent intent = new Intent(this, VoterActivity.class);
+        Intent intent = new Intent(this, VoterAuthenticationActivity.class);
         startActivity(intent);
     }
 

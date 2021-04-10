@@ -33,7 +33,7 @@ public class AdminLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adminlogin);
+        setContentView(R.layout.activity_admin_login);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(AdminLoginActivity.this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
@@ -52,7 +52,7 @@ public class AdminLoginActivity extends AppCompatActivity {
             if (mFirebaseUser != null) {
 
                 Toast.makeText(AdminLoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(AdminLoginActivity.this, HomeActivity.class);
+                Intent i = new Intent(AdminLoginActivity.this, AdminHomeActivity.class);
                 startActivity(i);
 
             } else {
@@ -90,7 +90,7 @@ public class AdminLoginActivity extends AppCompatActivity {
 
                     } else {
 
-                        Intent intToMain = new Intent(AdminLoginActivity.this, HomeActivity.class);
+                        Intent intToMain = new Intent(AdminLoginActivity.this, AdminHomeActivity.class);
                         startActivity(intToMain);
                     }
                 });
@@ -102,7 +102,7 @@ public class AdminLoginActivity extends AppCompatActivity {
 
         tvSignUp.setOnClickListener(v -> {
 
-            Intent intSignUp = new Intent(AdminLoginActivity.this, AdminActivity.class);
+            Intent intSignUp = new Intent(AdminLoginActivity.this, AdminAuthenticationActivity.class);
             startActivity(intSignUp);
         });
     }

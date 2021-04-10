@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class HomeActivity extends AppCompatActivity {
+public class AdminHomeActivity extends AppCompatActivity {
 
     MaterialButton btnLogout;
     MaterialButton createCandidate;
@@ -26,37 +26,37 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_admin_home);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent));
+        getWindow().setStatusBarColor(ContextCompat.getColor(AdminHomeActivity.this, R.color.colorAccent));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
         btnLogout = findViewById(R.id.Logout);
         btnLogout.setOnClickListener(v -> {
 
             FirebaseAuth.getInstance().signOut();
-            Intent intToAdmin = new Intent(HomeActivity.this, AdminActivity.class);
+            Intent intToAdmin = new Intent(AdminHomeActivity.this, AdminAuthenticationActivity.class);
             startActivity(intToAdmin);
         });
 
         createCandidate = findViewById(R.id.Candidate);
         createCandidate.setOnClickListener(v -> {
 
-            Intent intent = new Intent(HomeActivity.this, CreateCandidateActivity.class);
+            Intent intent = new Intent(AdminHomeActivity.this, CreateCandidateActivity.class);
             startActivity(intent);
         });
 
         createVoter = findViewById(R.id.Voter);
         createVoter.setOnClickListener(v -> {
 
-            Intent intent = new Intent(HomeActivity.this, CreateVoterActivity.class);
+            Intent intent = new Intent(AdminHomeActivity.this, CreateVoterActivity.class);
             startActivity(intent);
         });
 
         viewResults = findViewById(R.id.Results);
         viewResults.setOnClickListener(v -> {
 
-            Intent intent = new Intent(HomeActivity.this, ResultActivity.class);
+            Intent intent = new Intent(AdminHomeActivity.this, ResultActivity.class);
             startActivity(intent);
         });
     }
