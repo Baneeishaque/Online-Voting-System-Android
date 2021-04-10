@@ -26,4 +26,7 @@
     <string name="candidate_name">Candidate Name</string>
     <string name="todo">TODO</string>
     <string name="vote">Vote</string>
+    <string name="_25">25</string>
+    <string name="candidate_wins">Candidate1 Wins</string>
+    <string name="voting_results">Voting Results</string>
 </resources>

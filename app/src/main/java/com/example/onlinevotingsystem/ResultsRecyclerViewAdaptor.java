@@ -11,19 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CandidatesRecyclerViewAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ResultsRecyclerViewAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<CandidateModal> candidates;
+    private ArrayList<ResultModal> results;
     private OnItemClickListener mItemClickListener;
 
-    public CandidatesRecyclerViewAdaptor(ArrayList<CandidateModal> candidates) {
+    public ResultsRecyclerViewAdaptor(ArrayList<ResultModal> results) {
 
-        this.candidates = candidates;
+        this.results = results;
     }
 
-    public void updateList(ArrayList<CandidateModal> modelList) {
+    public void updateList(ArrayList<ResultModal> modelList) {
 
-        this.candidates = modelList;
+        this.results = modelList;
         notifyDataSetChanged();
     }
 
@@ -31,7 +31,7 @@ public class CandidatesRecyclerViewAdaptor extends RecyclerView.Adapter<Recycler
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_candidate, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_result, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -41,17 +41,18 @@ public class CandidatesRecyclerViewAdaptor extends RecyclerView.Adapter<Recycler
 
         if (holder instanceof ViewHolder) {
 
-            final CandidateModal candidate = getItem(position);
+            final ResultModal result = getItem(position);
             ViewHolder genericViewHolder = (ViewHolder) holder;
 
-            genericViewHolder.item_image_candidate_symbol.setImageDrawable(candidate.partySymbol);
-            genericViewHolder.item_text_candidate_name.setText(candidate.getName());
+            genericViewHolder.item_image_candidate_symbol.setImageDrawable(result.partySymbol);
+            genericViewHolder.item_text_candidate_name.setText(result.getName());
+            genericViewHolder.item_text_no_of_votes.setText(String.valueOf(result.getNoOfVotes()));
         }
     }
 
     @Override
     public int getItemCount() {
-        return candidates.size();
+        return results.size();
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
@@ -59,18 +60,19 @@ public class CandidatesRecyclerViewAdaptor extends RecyclerView.Adapter<Recycler
         this.mItemClickListener = mItemClickListener;
     }
 
-    private CandidateModal getItem(int position) {
-        return candidates.get(position);
+    private ResultModal getItem(int position) {
+        return results.get(position);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, CandidateModal candidate);
+        void onItemClick(View view, int position, ResultModal result);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView item_image_candidate_symbol;
         private final TextView item_text_candidate_name;
+        private final TextView item_text_no_of_votes;
 
         ViewHolder(final View itemView) {
 
@@ -78,8 +80,9 @@ public class CandidatesRecyclerViewAdaptor extends RecyclerView.Adapter<Recycler
 
             this.item_image_candidate_symbol = itemView.findViewById(R.id.item_image_candidate_symbol);
             this.item_text_candidate_name = itemView.findViewById(R.id.item_text_candidate_name);
+            this.item_text_no_of_votes = itemView.findViewById(R.id.item_text_no_of_votes);
 
-            itemView.setOnClickListener(view -> mItemClickListener.onItemClick(itemView, getAdapterPosition(), candidates.get(getAdapterPosition())));
+            itemView.setOnClickListener(view -> mItemClickListener.onItemClick(itemView, getAdapterPosition(), results.get(getAdapterPosition())));
         }
     }
 }
