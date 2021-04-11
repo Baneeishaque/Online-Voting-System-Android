@@ -14,8 +14,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-	// TODO : Override Back Press
-	
+    // TODO : Override Back Press
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
         findViewById(R.id.button_admin).setOnClickListener(v -> openAdminActivity());
         findViewById(R.id.button_voter).setOnClickListener(v -> openVoterActivity());
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openAdminActivity() {
-		
+
         startActivity(new Intent(this, AdminAuthenticationActivity.class));
     }
 

@@ -14,35 +14,35 @@ import java.util.Objects;
 
 public class SplashActivity extends AppCompatActivity {
 
-	Context activityContext = this;
+    Context activityContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-		
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
 
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         Thread thread = new Thread() {
-        
-			public void run() {
-            
-				try {
-                
-					sleep(4000);
-                
-				} catch (Exception e) {
-					
-					Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
-                
-				} finally {
-                
+
+            public void run() {
+
+                try {
+
+                    sleep(4000);
+
+                } catch (Exception e) {
+
+                    Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
+
+                } finally {
+
                     startActivity(new Intent(activityContext, MainActivity.class));
-					// TODO : Finish Activity
-					// TODO : Override Back Press
+                    // TODO : Finish Activity
+                    // TODO : Override Back Press
                 }
             }
         };

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,90 +21,81 @@ import java.util.Objects;
 
 public class AdminLoginActivity extends AppCompatActivity {
 
-    EditText Email;
-    EditText Password;
-    MaterialButton btnSignIn;
-    TextView tvSignUp;
+    Context activityContext = this;
+    AppCompatActivity currentActivity = this;
+
+    EditText Email,Password;
 
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(AdminLoginActivity.this, R.color.colorAccent));
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
+        if (getSupportActionBar() != null) getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         Email = findViewById(R.id.Email);
         Password = findViewById(R.id.Password);
-        btnSignIn = findViewById(R.id.btnSignIn);
-        tvSignUp = findViewById(R.id.tvSignUp);
 
         mAuthStateListener = firebaseAuth -> {
 
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
             if (mFirebaseUser != null) {
 
-                Toast.makeText(AdminLoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(AdminLoginActivity.this, AdminHomeActivity.class);
-                startActivity(i);
+                Toast.makeText(getApplicationContext(), "You are logged in", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(activityContext, AdminHomeActivity.class));
 
             } else {
 
-                Toast.makeText(AdminLoginActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please Login", Toast.LENGTH_SHORT).show();
             }
         };
 
-        btnSignIn.setOnClickListener(v -> {
+        findViewById(R.id.btnSignIn).setOnClickListener(v -> {
 
             String email = Email.getText().toString();
             String pwd = Password.getText().toString();
 
             if (email.isEmpty() && pwd.isEmpty()) {
 
-                Toast.makeText(AdminLoginActivity.this, "Fields Are Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Fields Are Empty!", Toast.LENGTH_SHORT).show();
 
             } else if (email.isEmpty()) {
 
-                Email.setError("Please enter email id");
+                Email.setError("Please enter email id...");
                 Email.requestFocus();
 
             } else if (pwd.isEmpty()) {
 
-                Password.setError("Please enter your password");
+                Password.setError("Please enter your password...");
                 Password.requestFocus();
 
             } else {
 
-                mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(AdminLoginActivity.this, task -> {
+                mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(currentActivity, task -> {
 
                     if (!task.isSuccessful()) {
 
-                        Toast.makeText(AdminLoginActivity.this, "Login Error, Please Login Again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Login Error, Please Login Again", Toast.LENGTH_SHORT).show();
 
                     } else {
 
-                        Intent intToMain = new Intent(AdminLoginActivity.this, AdminHomeActivity.class);
-                        startActivity(intToMain);
+                        startActivity(new Intent(activityContext, AdminHomeActivity.class));
                     }
                 });
             }
-//            else {
-//                Toast.makeText(AdminloginActivity.this, "Error Occurred!", Toast.LENGTH_SHORT).show();
-//            }
         });
 
-        tvSignUp.setOnClickListener(v -> {
+        findViewById(R.id.tvSignUp).setOnClickListener(v -> {
 
-            Intent intSignUp = new Intent(AdminLoginActivity.this, AdminAuthenticationActivity.class);
-            startActivity(intSignUp);
+            startActivity(new Intent(activityContext, AdminAuthenticationActivity.class));
         });
     }
 
@@ -112,6 +104,5 @@ public class AdminLoginActivity extends AppCompatActivity {
 
         super.onStart();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-
     }
 }

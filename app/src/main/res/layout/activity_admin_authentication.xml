@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!-- TODO : Derive a theme from app theme, use it as activity theme, instead of applying background color -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,11 +7,20 @@
     android:background="#FFFFFF"
     tools:context=".AdminAuthenticationActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    
     <EditText
         android:id="@+id/edit_text_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
+        android:layout_margin="16dp"
+        android:autofillHints="emailAddress"
         android:background="@drawable/round_border"
         android:drawableStart="@drawable/ic_baseline_email_24"
         android:drawablePadding="16dp"
@@ -19,17 +28,17 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintBottom_toTopOf="@+id/edit_text_password"
-        app:layout_constraintVertical_bias="0.324" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edit_text_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
+        android:layout_margin="16dp"
+        android:autofillHints="password"
         android:background="@drawable/round_border"
         android:drawableStart="@drawable/ic_baseline_lock_24"
         android:drawablePadding="16dp"
@@ -39,14 +48,15 @@
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_email"
-        app:layout_constraintVertical_bias="0.453" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_email" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_sign_up"
-        android:layout_width="151dp"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
+        android:layout_margin="16dp"
         android:padding="16dp"
         android:text="@string/signup"
         android:textColor="@color/white"
@@ -55,21 +65,24 @@
         app:backgroundTint="@color/black"
         app:cornerRadius="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
 
     <TextView
         android:id="@+id/text_view_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/already_have_an_account_sign_in_here"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_sign_up"
-        app:layout_constraintVertical_bias="0.811" />
+        app:layout_constraintTop_toBottomOf="@+id/button_sign_up" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
