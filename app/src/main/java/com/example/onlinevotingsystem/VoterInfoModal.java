@@ -4,9 +4,27 @@ public class VoterInfoModal {
 
     // TODO : include isAssemblyVoteDone & isParlimentVoteDone
     String name, address, age, mobileNumber, voterId, aadharNumber, parliamentName, assemblyName, DOB, gender;
+    boolean isAssemblyVoteDone;
 
-    public VoterInfoModal(String name, String address, String age, String mobileNumber, String voterId, String aadharNumber, String parliamentName, String assemblyName, String DOB, String gender) {
+    public boolean isAssemblyVoteDone() {
+        return isAssemblyVoteDone;
+    }
 
+    public void setAssemblyVoteDone(boolean assemblyVoteDone) {
+        isAssemblyVoteDone = assemblyVoteDone;
+    }
+
+    public boolean isParlimentVoteDone() {
+        return isParlimentVoteDone;
+    }
+
+    public void setParlimentVoteDone(boolean parlimentVoteDone) {
+        isParlimentVoteDone = parlimentVoteDone;
+    }
+
+    boolean isParlimentVoteDone;
+
+    public VoterInfoModal(String name, String address, String age, String mobileNumber, String voterId, String aadharNumber, String parliamentName, String assemblyName, String DOB, String gender, boolean isAssemblyVoteDone, boolean isParlimentVoteDone) {
         this.name = name;
         this.address = address;
         this.age = age;
@@ -17,6 +35,8 @@ public class VoterInfoModal {
         this.assemblyName = assemblyName;
         this.DOB = DOB;
         this.gender = gender;
+        this.isAssemblyVoteDone = isAssemblyVoteDone;
+        this.isParlimentVoteDone = isParlimentVoteDone;
     }
 
     public VoterInfoModal() {

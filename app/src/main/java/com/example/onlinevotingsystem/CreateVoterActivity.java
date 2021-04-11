@@ -200,7 +200,7 @@ public class CreateVoterActivity extends AppCompatActivity {
                 String assemblyName = spinner_assembly.getSelectedItem().toString();
                 dob = dateButton.getText().toString();
 
-                VoterInfoModal info = new VoterInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, assemblyName, dob, genderType);
+                VoterInfoModal info = new VoterInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, assemblyName, dob, genderType,false,false);
 
                 Log.d(ApplicationSpecification.name, "Date : "+dateButton.getText().toString());
 
