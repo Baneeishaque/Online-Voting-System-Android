@@ -22,7 +22,7 @@
             android:name=".AdminLoginActivity"
             android:parentActivityName=".AdminAuthenticationActivity" />
         <activity
-            android:name=".ResultActivity"
+            android:name=".ParlimentResultActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".VoterAuthenticationActivity"

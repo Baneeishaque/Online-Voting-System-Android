@@ -33,6 +33,7 @@ public class CreateParlimentCandidateActivity extends AppCompatActivity {
     //TODO : Check for mobile number unique
     //TODO : Check for voter id unique
     //TODO : Check for aadhar number unique
+    //TODO : show selected parliment name on title
     TextView CandidateForm, CandidateName, Address, Dob, Age, MobileNumber, VoterId, AadharNumber, PartyName, Parliament;
 
     EditText EnterName, EnterAddress, EnterAge, EnterMobile, EnterVoterId, EnterAadhar;

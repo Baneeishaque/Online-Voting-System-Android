@@ -36,7 +36,6 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 
     Context activityContext = this;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,50 +43,64 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_voter_authentication);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(VoterAuthenticationActivity.this, R.color.colorAccent));
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         buttonGetOtp = findViewById(R.id.buttonGetOtp);
         buttonGetOtp.setOnClickListener(v -> {
 
-            //TODO : Empty check
             editTextVoterId = findViewById(R.id.editTextVoterId);
             editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
 
-            DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference votersNode = rootNode.child("voters");
+            if (editTextVoterId.getText().toString().isEmpty()) {
 
-            votersNode.child(editTextVoterId.getText().toString().trim()).get().addOnCompleteListener(task -> {
+                Toast.makeText(getApplicationContext(), "Please enter Voter ID...", Toast.LENGTH_SHORT).show();
+                editTextVoterId.setError("Please enter Voter ID...");
+                editTextVoterId.requestFocus();
 
-                if (task.isSuccessful()) {
+            } else if (editTextPhoneNumber.getText().toString().isEmpty()) {
 
-                    DataSnapshot data = task.getResult();
-                    if (data != null && data.exists()) {
+                Toast.makeText(getApplicationContext(), "Please enter Mobile Number...", Toast.LENGTH_SHORT).show();
+                editTextPhoneNumber.setError("Please enter Phone Number...");
+                editTextPhoneNumber.requestFocus();
 
-                        VoterInfoModal voter = data.getValue(VoterInfoModal.class);
+            } else {
 
-                        Log.d(ApplicationSpecification.name, "Voter : " + voter);
+                DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference votersNode = rootNode.child("voters");
 
-                        if (voter != null && voter.getMobileNumber().equals(editTextPhoneNumber.getText().toString())) {
+                votersNode.child(editTextVoterId.getText().toString().trim()).get().addOnCompleteListener(task -> {
 
-                            Toast.makeText(getApplicationContext(), "Authentication Success!", Toast.LENGTH_LONG).show();
-                            Intent intToAdmin = new Intent(activityContext, VoterOtpAuthenticationActivity.class);
-                            startActivity(intToAdmin);
+                    if (task.isSuccessful()) {
+
+                        DataSnapshot data = task.getResult();
+                        if (data != null && data.exists()) {
+
+                            VoterInfoModal voter = data.getValue(VoterInfoModal.class);
+
+                            Log.d(ApplicationSpecification.name, "Voter : " + voter);
+
+                            if (voter != null && voter.getMobileNumber().equals(editTextPhoneNumber.getText().toString())) {
+
+                                Toast.makeText(getApplicationContext(), "Authentication Success!", Toast.LENGTH_LONG).show();
+                                Intent intToAdmin = new Intent(activityContext, VoterOtpAuthenticationActivity.class);
+                                startActivity(intToAdmin);
+
+                            } else {
+
+                                Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
+                            }
 
                         } else {
 
-                            Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
                         }
-
                     } else {
 
-                        Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
+                        Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
                     }
-                } else {
-
-                    Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
-                }
-            });
+                });
+            }
         });
     }
 }

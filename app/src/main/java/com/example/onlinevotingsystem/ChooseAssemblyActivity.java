@@ -2,6 +2,8 @@ package com.example.onlinevotingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -11,6 +13,8 @@ import java.util.ArrayList;
 public class ChooseAssemblyActivity extends AppCompatActivity {
 
     // TODO : Fix layout problems
+    Context activityContext = this;
+
     ArrayList<String> arrayList_malappuram, arrayList_ponnani, arrayList_wayanad;
     ArrayAdapter<String> arrayAdapter_assembly;
 
@@ -48,11 +52,15 @@ public class ChooseAssemblyActivity extends AppCompatActivity {
         arrayList_assemblies.addAll(arrayList_wayanad);
 
         arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_assemblies);
-        ((Spinner)findViewById(R.id.spinner_assembly)).setAdapter(arrayAdapter_assembly);
+
+        Spinner spinnerAssembly = findViewById(R.id.spinner_assembly);
+        spinnerAssembly.setAdapter(arrayAdapter_assembly);
 
         findViewById(R.id.button_submit).setOnClickListener(v -> {
 
-            // startActivity(new Intent(activityContext, AdminAuthenticationActivity.class));
-        });        
+            Intent intent = new Intent(activityContext, AssemblyResultActivity.class);
+            intent.putExtra("assembly", spinnerAssembly.getSelectedItem().toString());
+            startActivity(intent);
+        });
     }
 }
