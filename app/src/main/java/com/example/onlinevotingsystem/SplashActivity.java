@@ -16,7 +16,6 @@ public class SplashActivity extends AppCompatActivity {
 
 	Context activityContext = this;
 
-    // @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 		
@@ -25,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
         getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
 
-        Objects.requireNonNull(getSupportActionBar()).hide();
+        getSupportActionBar().hide();
 
         Thread thread = new Thread() {
         
