@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,15 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
 
 public class AdminAuthenticationActivity extends AppCompatActivity {
+	
+	Context activityContext = this;
 
-    EditText Email;
-    EditText Password;
-    TextView tvSignIn;
-    MaterialButton btnSignUp;
     FirebaseAuth mFirebaseAuth;
 
     @SuppressLint("ShowToast")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,23 +33,19 @@ public class AdminAuthenticationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_authentication);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(AdminAuthenticationActivity.this, R.color.colorAccent));
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        Email = findViewById(R.id.Email);
-        Password = findViewById(R.id.Password);
-        tvSignIn = findViewById(R.id.tvSignIn);
-        btnSignUp = findViewById(R.id.btnSignUp);
 
-        btnSignUp.setOnClickListener(v -> {
+        findViewById(R.id.button_sign_up).setOnClickListener(v -> {
 
-            String email = Email.getText().toString();
-            String pwd = Password.getText().toString();
+            String email = findViewById(R.id.edit_text_email).getText().toString();
+            String pwd = findViewById(R.id.edit_text_password).getText().toString();
 
             if (email.isEmpty() && pwd.isEmpty()) {
 
-                Toast.makeText(AdminAuthenticationActivity.this, "Fields Are Empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Fields Are Empty!", Toast.LENGTH_SHORT).show();
 
             } else if (email.isEmpty()) {
 
@@ -69,25 +63,20 @@ public class AdminAuthenticationActivity extends AppCompatActivity {
 
                     if (!task.isSuccessful()) {
 
-                        Toast.makeText(AdminAuthenticationActivity.this, "SignUp Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "SignUp Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
 
                     } else {
 
-                        startActivity(new Intent(AdminAuthenticationActivity.this, AdminHomeActivity.class));
+                        startActivity(new Intent(activityContext, AdminHomeActivity.class));
                     }
                 });
 
             }
-//            else {
-//                Toast.makeText(AdminActivity.this, "Error Occurred!", Toast.LENGTH_SHORT).show();
-//
-//            }
         });
 
-        tvSignIn.setOnClickListener(v -> {
+        findViewById(R.id.text_view_sign_in).setOnClickListener(v -> {
 
-            Intent i = new Intent(AdminAuthenticationActivity.this, AdminLoginActivity.class);
-            startActivity(i);
+            startActivity(new Intent(activityContext, AdminLoginActivity.class));
         });
     }
 }
