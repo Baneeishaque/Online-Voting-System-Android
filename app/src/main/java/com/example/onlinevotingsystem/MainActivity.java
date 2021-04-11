@@ -14,35 +14,34 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+	// TODO : Override Back Press
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
-        Button admin = findViewById(R.id.admin);
-        admin.setOnClickListener(v -> openAdminActivity());
-        Button voter = findViewById(R.id.voter);
-        voter.setOnClickListener(v -> openVoterActivity());
-        Button result = findViewById(R.id.result);
-        result.setOnClickListener(v -> openResultActivity());
+        findViewById(R.id.button_admin).setOnClickListener(v -> openAdminActivity());
+        findViewById(R.id.button_voter).setOnClickListener(v -> openVoterActivity());
+        findViewById(R.id.button_result).setOnClickListener(v -> openResultActivity());
     }
 
     public void openAdminActivity() {
-        Intent intent = new Intent(this, AdminAuthenticationActivity.class);
-        startActivity(intent);
+		
+        startActivity(new Intent(this, AdminAuthenticationActivity.class));
     }
 
     public void openVoterActivity() {
-        Intent intent = new Intent(this, VoterAuthenticationActivity.class);
-        startActivity(intent);
+
+        startActivity(new Intent(this, VoterAuthenticationActivity.class));
     }
 
     public void openResultActivity() {
-        Intent intent = new Intent(this, ResultActivity.class);
-        startActivity(intent);
+
+        startActivity(new Intent(this, ResultActivity.class));
     }
 }

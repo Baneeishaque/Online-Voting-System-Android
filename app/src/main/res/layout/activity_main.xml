@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- TODO : Derive a theme from app theme, use it as activity theme, instead of applying background color -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,14 +8,13 @@
     android:background="#EEEEEE"
     tools:context=".MainActivity">
 
-
     <TextView
-        android:id="@+id/tvElection"
+        android:id="@+id/text_view_election"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="48dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Malappuram District Legislative Assembly Election And Lok Sabha Election"
+        android:text="@string/main_title"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -28,34 +28,31 @@
 
 
         <Button
-            android:id="@+id/admin"
+            android:id="@+id/button_admin"
             android:layout_width="168dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:backgroundTint="#FF000000"
             android:drawableEnd="@drawable/admin"
-            android:drawableRight="@drawable/admin"
             android:padding="19dp"
             android:text="@string/admin"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/voter"
+            android:id="@+id/button_voter"
             android:layout_width="168dp"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/voter"
-            android:drawableRight="@drawable/voter"
             android:padding="19dp"
             android:text="@string/voter"
             android:textStyle="bold"
             app:backgroundTint="#FF000000" />
 
         <Button
-            android:id="@+id/result"
+            android:id="@+id/button_result"
             android:layout_width="168dp"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/result"
-            android:drawableRight="@drawable/result"
             android:padding="19dp"
             android:text="@string/result"
             android:textStyle="bold"

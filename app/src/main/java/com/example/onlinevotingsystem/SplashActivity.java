@@ -41,6 +41,8 @@ public class SplashActivity extends AppCompatActivity {
 				} finally {
                 
                     startActivity(new Intent(activityContext, MainActivity.class));
+					// TODO : Finish Activity
+					// TODO : Override Back Press
                 }
             }
         };
