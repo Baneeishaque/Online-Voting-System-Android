@@ -3,48 +3,41 @@
     package="com.example.onlinevotingsystem">
 
     <application
-
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineVotingSystem">
-
+        <activity android:name=".ChooseAssemblyActivity" />
+        <activity android:name=".ChooseParlimentActivity" />
         <activity android:name=".VoterVotingActivity" />
         <activity android:name=".VoterOtpAuthenticationActivity" />
         <activity android:name=".CreateAssemblyCandidateActivity" />
         <activity android:name=".CreateParlimentCandidateActivity" />
-
         <activity
             android:name=".CreateVoterActivity"
             android:parentActivityName=".AdminHomeActivity" />
-
         <activity android:name=".AdminHomeActivity" />
-
         <activity
             android:name=".AdminLoginActivity"
             android:parentActivityName=".AdminAuthenticationActivity" />
-
         <activity
             android:name=".ResultActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".VoterAuthenticationActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".AdminAuthenticationActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".MainActivity" />
-
     </application>
+
 </manifest>

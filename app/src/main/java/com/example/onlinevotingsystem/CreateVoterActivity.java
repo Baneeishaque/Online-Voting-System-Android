@@ -90,11 +90,11 @@ public class CreateVoterActivity extends AppCompatActivity {
         EnterVoterId = findViewById(R.id.EnterVoterId);
         EnterAadhar = findViewById(R.id.EnterAadhar);
 
-        submit = findViewById(R.id.submit);
+        submit = findViewById(R.id.button_submit);
 
         //for dependant spinner
         spinner_parliament = (Spinner) findViewById(R.id.spinner_parliament);
-        spinner_assembly = (Spinner) findViewById(R.id.spinner_assembly);
+        spinner_assembly = (Spinner) findViewById(R.id.spinner_parliment);
 
         arrayList_parliament = new ArrayList<>();
         arrayList_parliament.add("Malappuram");

@@ -287,7 +287,7 @@
                 app:backgroundTint="#11000000" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/submit"
+                android:id="@+id/button_submit"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"

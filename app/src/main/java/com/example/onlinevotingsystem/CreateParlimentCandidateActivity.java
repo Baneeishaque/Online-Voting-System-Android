@@ -93,7 +93,7 @@ public class CreateParlimentCandidateActivity extends AppCompatActivity {
         EnterVoterId = findViewById(R.id.EnterVoterId);
         EnterAadhar = findViewById(R.id.EnterAadhar);
 
-        submit = findViewById(R.id.submit);
+        submit = findViewById(R.id.button_submit);
 
         //for dependant spinner
         spinner_parliament = findViewById(R.id.spinner_parliament);

@@ -34,5 +34,7 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="validate_otp">Validate Otp</string>
     <string name="regenerate_otp">Regenerate Otp</string>
-	<string name="main_title">Malappuram District Legislative Assembly Election &amp; Lok Sabha Election</string>
+    <string name="main_title">Malappuram District Legislative Assembly Election &amp; Lok Sabha Election</string>
+    <string name="legislative_assembly_constituencies">Legislative Assembly Constituencies :</string>
+    <string name="parliament_constituencies">Parliament Constituencies :</string>
 </resources>
