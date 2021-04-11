@@ -12,9 +12,12 @@
     <string name="signin">signin</string>
     <string name="already_have_an_account_sign_in_here">Already have an account? Sign in here…</string>
     <string name="not_registered_sign_up_here">Not registered? Sign Up here</string>
-    <string name="view_results">view results</string>
+    <string name="view_assembly_results">view assembly results</string>
+    <string name="view_parliment_results">view parliment results</string>
     <string name="create_voter">create voter</string>
     <string name="create_candidate">create candidate</string>
+    <string name="create_assembly_candidate">create assembly candidate</string>
+    <string name="create_parliment_candidate">create parliment candidate</string>
     <string name="online_voting_system">Online Voting System</string>
     <string name="logout">Logout</string>
     <string name="candidate_form">Candidate Form</string>

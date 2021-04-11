@@ -2,26 +2,18 @@ package com.example.onlinevotingsystem;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Objects;
 
 public class AdminHomeActivity extends AppCompatActivity {
 
-    MaterialButton btnLogout;
-    MaterialButton createCandidate;
-    MaterialButton createVoter;
-    MaterialButton viewResults;
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    // TODO : Change username & password of admin
+    // TODO : Forgot password for admin
+    // TODO : Manage other admins
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,35 +21,39 @@ public class AdminHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_home);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(AdminHomeActivity.this, R.color.colorAccent));
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
-        btnLogout = findViewById(R.id.Logout);
-        btnLogout.setOnClickListener(v -> {
+        findViewById(R.id.button_logout).setOnClickListener(v -> {
 
+            // TODO : Evaluate Returns for firebase actions
             FirebaseAuth.getInstance().signOut();
-            Intent intToAdmin = new Intent(AdminHomeActivity.this, AdminAuthenticationActivity.class);
-            startActivity(intToAdmin);
+            startActivity(new Intent(AdminHomeActivity.this, AdminAuthenticationActivity.class));
         });
 
-        createCandidate = findViewById(R.id.Candidate);
-        createCandidate.setOnClickListener(v -> {
+        findViewById(R.id.button_create_assembly_candidate).setOnClickListener(v -> {
 
-            Intent intent = new Intent(AdminHomeActivity.this, CreateCandidateActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(AdminHomeActivity.this, CreateAssemblyCandidateActivity.class));
         });
 
-        createVoter = findViewById(R.id.Voter);
-        createVoter.setOnClickListener(v -> {
+        findViewById(R.id.button_create_parliment_candidate).setOnClickListener(v -> {
 
-            Intent intent = new Intent(AdminHomeActivity.this, CreateVoterActivity.class);
-            startActivity(intent);
+             startActivity(new Intent(AdminHomeActivity.this, CreateParlimentCandidateActivity.class));
         });
 
-        viewResults = findViewById(R.id.Results);
-        viewResults.setOnClickListener(v -> {
+        findViewById(R.id.button_create_voter).setOnClickListener(v -> {
 
-            Intent intent = new Intent(AdminHomeActivity.this, ResultActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(AdminHomeActivity.this, CreateVoterActivity.class));
+        });
+
+        findViewById(R.id.button_view_assembly_results).setOnClickListener(v -> {
+
+            startActivity(new Intent(AdminHomeActivity.this, ResultActivity.class));
+        });
+        
+        findViewById(R.id.button_view_parliment_results).setOnClickListener(v -> {
+
+            // startActivity(new Intent(AdminHomeActivity.this, ResultActivity.class));
         });
     }
 }

@@ -7,9 +7,9 @@
     tools:context=".AdminHomeActivity">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/Logout"
-        android:layout_width="151dp"
-        android:layout_height="69dp"
+        android:id="@+id/button_logout"
+        android:layout_width="152dp"
+        android:layout_height="68dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
@@ -30,12 +30,12 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/Candidate"
+            android:id="@+id/button_create_assembly_candidate"
             android:layout_width="306dp"
-            android:layout_height="72dp"
-            android:layout_marginTop="80dp"
+            android:layout_height="98dp"
+            android:layout_marginTop="40dp"
             android:padding="16dp"
-            android:text="@string/create_candidate"
+            android:text="@string/create_assembly_candidate"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -43,7 +43,19 @@
             app:cornerRadius="32dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/Voter"
+            android:id="@+id/button_create_parliment_candidate"
+            android:layout_width="306dp"
+            android:layout_height="98dp"
+            android:padding="16dp"
+            android:text="@string/create_parliment_candidate"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="#000000"
+            app:cornerRadius="32dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_create_voter"
             android:layout_width="306dp"
             android:layout_height="72dp"
             android:padding="16dp"
@@ -55,15 +67,29 @@
             app:cornerRadius="32dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/Results"
+            android:id="@+id/button_view_assembly_results"
             android:layout_width="306dp"
             android:layout_height="72dp"
             android:padding="16dp"
-            android:text="@string/view_results"
+            android:text="@string/view_assembly_results"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:backgroundTint="#000000"
             app:cornerRadius="32dp" />
+        
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_view_parliment_results"
+            android:layout_width="306dp"
+            android:layout_height="72dp"
+            android:padding="16dp"
+            android:text="@string/view_parliment_results"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="#000000"
+            app:cornerRadius="32dp" />
+
     </LinearLayout>
+
 </RelativeLayout>

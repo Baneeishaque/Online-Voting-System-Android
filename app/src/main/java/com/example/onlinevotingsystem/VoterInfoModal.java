@@ -2,6 +2,7 @@ package com.example.onlinevotingsystem;
 
 public class VoterInfoModal {
 
+    // TODO : include isAssemblyVoteDone & isParlimentVoteDone
     String name, address, age, mobileNumber, voterId, aadharNumber, parliamentName, assemblyName, DOB, gender;
 
     public VoterInfoModal(String name, String address, String age, String mobileNumber, String voterId, String aadharNumber, String parliamentName, String assemblyName, String DOB, String gender) {

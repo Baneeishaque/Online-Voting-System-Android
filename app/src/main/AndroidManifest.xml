@@ -12,7 +12,8 @@
 
         <activity android:name=".VoterVotingActivity" />
         <activity android:name=".VoterOtpAuthenticationActivity" />
-        <activity android:name=".CreateCandidateActivity" />
+        <activity android:name=".CreateAssemblyCandidateActivity" />
+        <activity android:name=".CreateParlimentCandidateActivity" />
 
         <activity
             android:name=".CreateVoterActivity"

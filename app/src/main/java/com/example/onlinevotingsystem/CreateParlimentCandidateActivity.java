@@ -3,7 +3,6 @@ package com.example.onlinevotingsystem;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -27,12 +25,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Objects;
 
-public class CreateCandidateActivity extends AppCompatActivity {
+public class CreateParlimentCandidateActivity extends AppCompatActivity {
 
     //variables
-    TextView CandidateForm, CandidateName, Address, Dob, Age, MobileNumber, VoterId, AadharNumber, PartyName, Parliament, Assembly;
+    //TODO : Check for under age / over age
+    //TODO : Check for mobile number unique
+    //TODO : Check for voter id unique
+    //TODO : Check for aadhar number unique
+    TextView CandidateForm, CandidateName, Address, Dob, Age, MobileNumber, VoterId, AadharNumber, PartyName, Parliament;
 
     EditText EnterName, EnterAddress, EnterAge, EnterMobile, EnterVoterId, EnterAadhar;
 
@@ -40,24 +41,22 @@ public class CreateCandidateActivity extends AppCompatActivity {
 
     String genderType;
 
+    //TODO : Calculate age, avoid age input
     String dob;
 
     //writing data to firebase
     FirebaseDatabase rootNode;
-    DatabaseReference candidatesNode;
+    DatabaseReference parlimentCandidatesNode;
 
     //for gender
     RadioButton Male, Female, Other;
     RadioGroup radioGroup;
 
     //for dependant spinner
-    Spinner spinner_parliament, spinner_assembly;
+    Spinner spinner_parliament;
 
     ArrayList<String> arrayList_parliament;
     ArrayAdapter<String> arrayAdapter_parliament;
-
-    ArrayList<String> arrayList_malappuram, arrayList_ponnani, arrayList_wayanad;
-    ArrayAdapter<String> arrayAdapter_assembly;
 
     //for party name spinner view
     private ArrayList<PartyModal> mPartyList;
@@ -66,15 +65,15 @@ public class CreateCandidateActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_candidate);
+        setContentView(R.layout.activity_create_parliment_candidate);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(CreateCandidateActivity.this, R.color.colorAccent));
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        getWindow().setStatusBarColor(ContextCompat.getColor(CreateParlimentCandidateActivity.this, R.color.colorAccent));
+        if (getSupportActionBar() != null) 
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
         CandidateForm = findViewById(R.id.CandidateForm);
         CandidateName = findViewById(R.id.CandidateName);
@@ -86,7 +85,6 @@ public class CreateCandidateActivity extends AppCompatActivity {
         AadharNumber = findViewById(R.id.AadharNumber);
         PartyName = findViewById(R.id.PartyName);
         Parliament = findViewById(R.id.Parliament);
-        Assembly = findViewById(R.id.Assembly);
 
         EnterName = findViewById(R.id.EnterName);
         EnterAddress = findViewById(R.id.EnterAddress);
@@ -98,9 +96,9 @@ public class CreateCandidateActivity extends AppCompatActivity {
         submit = findViewById(R.id.submit);
 
         //for dependant spinner
-        spinner_parliament = (Spinner) findViewById(R.id.spinner_parliament);
-        spinner_assembly = (Spinner) findViewById(R.id.spinner_assembly);
+        spinner_parliament = findViewById(R.id.spinner_parliament);
 
+        //TODO : populate from string array
         arrayList_parliament = new ArrayList<>();
         arrayList_parliament.add("Malappuram");
         arrayList_parliament.add("Ponnani");
@@ -108,53 +106,6 @@ public class CreateCandidateActivity extends AppCompatActivity {
 
         arrayAdapter_parliament = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_parliament);
         spinner_parliament.setAdapter(arrayAdapter_parliament);
-
-        arrayList_malappuram = new ArrayList<>();
-        arrayList_malappuram.add("Malappuram");
-        arrayList_malappuram.add("Manjeri");
-        arrayList_malappuram.add("Mankada");
-        arrayList_malappuram.add("Perinthalmanna");
-        arrayList_malappuram.add("Vallikunnu");
-        arrayList_malappuram.add("Kondotty");
-        arrayList_malappuram.add("Vengara");
-
-        arrayList_ponnani = new ArrayList<>();
-        arrayList_ponnani.add("Ponnani");
-        arrayList_ponnani.add("Tirur");
-        arrayList_ponnani.add("Tanur");
-        arrayList_ponnani.add("Tirurangadi");
-        arrayList_ponnani.add("Kottakkal");
-        arrayList_ponnani.add("Thavanur");
-
-        arrayList_wayanad = new ArrayList<>();
-        arrayList_wayanad.add("Eranad");
-        arrayList_wayanad.add("Wandoor");
-        arrayList_wayanad.add("Nilambur");
-
-        spinner_parliament.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (position == 0) {
-
-                    arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_malappuram);
-                }
-                if (position == 1) {
-
-                    arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_ponnani);
-                }
-                if (position == 2) {
-
-                    arrayAdapter_assembly = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList_wayanad);
-                }
-                spinner_assembly.setAdapter(arrayAdapter_assembly);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
         //for dob
         initDatePicker();
@@ -173,7 +124,7 @@ public class CreateCandidateActivity extends AppCompatActivity {
 
                 PartyModal clickedItem = (PartyModal) parent.getItemAtPosition(position);
                 String clickedPartyName = clickedItem.getPartyName();
-                Toast.makeText(CreateCandidateActivity.this, clickedPartyName + "selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateParlimentCandidateActivity.this, clickedPartyName + "selected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -183,27 +134,27 @@ public class CreateCandidateActivity extends AppCompatActivity {
 
         //for gender
         genderType = "Male";
-        Male = (RadioButton) findViewById(R.id.male);
-        Female = (RadioButton) findViewById(R.id.female);
-        Other = (RadioButton) findViewById(R.id.other);
-        radioGroup = (RadioGroup) findViewById(R.id.RadioGroup);
+        Male = findViewById(R.id.male);
+        Female = findViewById(R.id.female);
+        Other = findViewById(R.id.other);
+        radioGroup = findViewById(R.id.RadioGroup);
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
 
             if (Male.isChecked()) {
 
                 genderType = "Male";
-                Toast.makeText(CreateCandidateActivity.this, "Male", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateParlimentCandidateActivity.this, "Male", Toast.LENGTH_SHORT).show();
 
             } else if (Female.isChecked()) {
 
                 genderType = "Female";
-                Toast.makeText(CreateCandidateActivity.this, "Female", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateParlimentCandidateActivity.this, "Female", Toast.LENGTH_SHORT).show();
 
             } else {
 
                 genderType = "Other";
-                Toast.makeText(CreateCandidateActivity.this, "Other", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateParlimentCandidateActivity.this, "Other", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -212,7 +163,7 @@ public class CreateCandidateActivity extends AppCompatActivity {
 
             try {
                 rootNode = FirebaseDatabase.getInstance();
-                candidatesNode = rootNode.getReference("candidates");
+                parlimentCandidatesNode = rootNode.getReference("parlimentCandidates");
 
                 //Get all the values
                 String name = EnterName.getText().toString();
@@ -224,21 +175,23 @@ public class CreateCandidateActivity extends AppCompatActivity {
                 PartyModal party = (PartyModal) spinnerParties.getSelectedItem();
                 String partyName = party.getPartyName();
                 String parlimentName = spinner_parliament.getSelectedItem().toString();
-                String assemblyName = spinner_assembly.getSelectedItem().toString();
+                String assemblyName = "NA";
                 dob = dateButton.getText().toString();
 
                 CandidateInfoModal info = new CandidateInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, partyName, assemblyName, dob, genderType);
 
                 Log.d(ApplicationSpecification.name, "DATE : " + dateButton.getText().toString());
 
-                //TODO : Avoid duplicate voter Ids
-                candidatesNode.child(voterId).setValue(info);
-                Toast.makeText(CreateCandidateActivity.this, "Candidate added successfully", Toast.LENGTH_SHORT).show();
+                //TODO : Avoid duplicate voter Ids - check for voterId existence
+                //TODO : Check returns from firebase db
+                parlimentCandidatesNode.child(parlimentName).child(voterId).setValue(info);
+                //TODO : Reset from after submission
+                Toast.makeText(CreateParlimentCandidateActivity.this, "Candidate added successfully", Toast.LENGTH_SHORT).show();
                 Log.d(ApplicationSpecification.name, "info : " + info.toString());
 
             } catch (Exception e) {
 
-                Toast.makeText(CreateCandidateActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateParlimentCandidateActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                 Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
             }
         });
@@ -253,6 +206,7 @@ public class CreateCandidateActivity extends AppCompatActivity {
         int month = cal.get(Calendar.MONTH);
         month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
+        //TODO : Use SimpleDateFormat Patterns
         return makeDateString(day, month, year);
     }
 
@@ -266,6 +220,7 @@ public class CreateCandidateActivity extends AppCompatActivity {
         };
 
         Calendar cal = Calendar.getInstance();
+        //TODO : Use SimpleDateFormat Patterns
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -277,11 +232,13 @@ public class CreateCandidateActivity extends AppCompatActivity {
 
     private String makeDateString(int day, int month, int year) {
 
+        //TODO : Use SimpleDateFormat Patterns
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
     private String getMonthFormat(int month) {
 
+        //TODO : Use SimpleDateFormat Patterns
         if (month == 1)
             return "JAN";
         if (month == 2)
@@ -312,12 +269,14 @@ public class CreateCandidateActivity extends AppCompatActivity {
     }
 
     public void openDatePicker(View view) {
+
         datePickerDialog.show();
     }
 
     //for party name spinner view
     private void initList() {
 
+        //TODO : populate from string array
         mPartyList = new ArrayList<>();
         mPartyList.add(new PartyModal("LDF", R.drawable.ldf));
         mPartyList.add(new PartyModal("UDF", R.drawable.udf));
