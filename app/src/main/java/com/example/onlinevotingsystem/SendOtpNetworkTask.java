@@ -55,7 +55,6 @@ public class SendOtpNetworkTask extends AsyncTask<Void, Void, String[]> {
             defaultHttpClient = new DefaultHttpClient();
             httpPost = new HttpPost("https://www.fast2sms.com/dev/bulkV2");
 
-            //            httpPost.setHeader("cache-control", "no-cache");
             httpPost.setHeader("authorization", "Fsa8UfwRSjtz5b6mdQ3rNP4qDW2onTLXCKeAi0cVZ7uEvYlIBH5y9ugFDUcp8NHlX42qK1VidZR7OBYx");
             httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -70,9 +69,6 @@ public class SendOtpNetworkTask extends AsyncTask<Void, Void, String[]> {
             ResponseHandler<String> basicResponseHandler = new BasicResponseHandler();
 
             networkActionResponse = defaultHttpClient.execute(httpPost, basicResponseHandler);
-
-//            HttpResponse<String> response = Unirest.get("https://www.fast2sms.com/dev/bulkV2?authorization=Fsa8UfwRSjtz5b6mdQ3rNP4qDW2onTLXCKeAi0cVZ7uEvYlIBH5y9ugFDUcp8NHlX42qK1VidZR7OBYx&sender_id=TXTIND&message=This is a test message&route=v3&numbers=" + mobileNumber).header("cache-control", "no-cache").asString();
-//            return new String[]{"0", response.getBody()};
 
             return new String[]{"0", networkActionResponse};
 

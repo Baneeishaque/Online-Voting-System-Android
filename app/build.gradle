@@ -45,9 +45,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:19.7.0'
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
     implementation 'com.google.firebase:firebase-database:19.6.0'
-//    implementation 'com.konghq:unirest-java:3.11.11'
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.2'
-    // implementation 'com.github.Baneeishaque:Android-Common-Utils16:04ae205a88'
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

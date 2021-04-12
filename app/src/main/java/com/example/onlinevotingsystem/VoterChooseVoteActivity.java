@@ -35,54 +35,41 @@ public class VoterChooseVoteActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     DataSnapshot data = task.getResult();
-                    if (data != null && data.exists()) {
 
-                        VoterInfoModal voter = data.getValue(VoterInfoModal.class);
+                    VoterInfoModal voter = data.getValue(VoterInfoModal.class);
 
-                        Log.d(ApplicationSpecification.name, "Voter : " + voter);
+                    Log.d(ApplicationSpecification.name, "Voter : " + voter);
 
-                        if (voter != null) {
+                    if (voter.isAssemblyVoteDone) {
 
-                            if (voter.isAssemblyVoteDone) {
-
-                                Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
-
-                            } else {
-
-                                Intent intent = new Intent(activityContext, VoterVotingActivity.class);
-
-                                intent.putExtra("type", "assembly");
-                                intent.putExtra("typeValue", getIntent().getStringExtra("assembly"));
-                                intent.putExtra("voterId", getIntent().getStringExtra("voterId"));
-
-                                // type = "assembly";
-                                // typeValue = voter.getAssemblyName();
-                                // voterId = voter.getVoterId();
-
-                                // VoterVotingActivity.type = "assembly";
-                                // VoterVotingActivity.typeValue = voter.getAssemblyName();
-                                // VoterVotingActivity.voterId = voter.getVoterId();
-
-                                // Log.d(ApplicationSpecification.name, "type : " + type);
-                                // Log.d(ApplicationSpecification.name, "typeValue : " + typeValue);
-
-                                startActivity(intent);
-                            }
-
-                        } else {
-
-                            Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
-                        }
+                        Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
 
                     } else {
 
-                        Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(activityContext, VoterVotingActivity.class);
+
+                        intent.putExtra("type", "assembly");
+                        intent.putExtra("typeValue", getIntent().getStringExtra("assembly"));
+                        intent.putExtra("voterId", getIntent().getStringExtra("voterId"));
+
+                        // type = "assembly";
+                        // typeValue = voter.getAssemblyName();
+                        // voterId = voter.getVoterId();
+
+                        // VoterVotingActivity.type = "assembly";
+                        // VoterVotingActivity.typeValue = voter.getAssemblyName();
+                        // VoterVotingActivity.voterId = voter.getVoterId();
+
+                        // Log.d(ApplicationSpecification.name, "type : " + type);
+                        // Log.d(ApplicationSpecification.name, "typeValue : " + typeValue);
+
+                        startActivity(intent);
                     }
+
                 } else {
 
                     Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
                 }
-
             });
         });
 
@@ -97,42 +84,30 @@ public class VoterChooseVoteActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     DataSnapshot data = task.getResult();
-                    if (data != null && data.exists()) {
 
-                        VoterInfoModal voter = data.getValue(VoterInfoModal.class);
+                    VoterInfoModal voter = data.getValue(VoterInfoModal.class);
 
-                        Log.d(ApplicationSpecification.name, "Voter : " + voter);
+                    Log.d(ApplicationSpecification.name, "Voter : " + voter);
 
-                        if (voter != null) {
 
-                            if (voter.isAssemblyVoteDone) {
+                    if (voter.isAssemblyVoteDone) {
 
-                                Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
-                            } else {
-
-                                Intent intent = new Intent(activityContext, VoterVotingActivity.class);
-
-                                intent.putExtra("type", "parliment");
-                                intent.putExtra("typeValue", getIntent().getStringExtra("parliment"));
-                                intent.putExtra("voterId", getIntent().getStringExtra("voterId"));
-
-                                startActivity(intent);
-                            }
-
-                        } else {
-
-                            Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
-                        }
-
+                        Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
                     } else {
 
-                        Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(activityContext, VoterVotingActivity.class);
+
+                        intent.putExtra("type", "parliment");
+                        intent.putExtra("typeValue", getIntent().getStringExtra("parliment"));
+                        intent.putExtra("voterId", getIntent().getStringExtra("voterId"));
+
+                        startActivity(intent);
                     }
+
                 } else {
 
                     Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
                 }
-
             });
         });
     }
