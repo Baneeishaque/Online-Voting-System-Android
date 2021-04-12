@@ -5,15 +5,29 @@ import android.graphics.drawable.Drawable;
 public class CandidateModal {
 
     public Drawable partySymbol;
-    public String name, assemblyName, parliment;
+    public String name;
+    public String assemblyName;
+    public String parliment;
 
-    public CandidateModal(Drawable partySymbol, String name, String assemblyName, String parliment) {
+    public CandidateModal(Drawable partySymbol, String name, String assemblyName, String parliment, String partyName) {
 
         this.partySymbol = partySymbol;
         this.name = name;
         this.assemblyName = assemblyName;
         this.parliment = parliment;
+        this.partyName = partyName;
     }
+
+    public String getPartyName() {
+        return partyName;
+    }
+
+    public void setPartyName(String partyName) {
+        this.partyName = partyName;
+    }
+
+    public String partyName;
+
 
     public String getAssemblyName() {
         return assemblyName;

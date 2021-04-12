@@ -3,6 +3,7 @@ package com.example.onlinevotingsystem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -72,6 +73,7 @@ public class CandidatesRecyclerViewAdaptor extends RecyclerView.Adapter<Recycler
 
         private final ImageView item_image_candidate_symbol;
         private final TextView item_text_candidate_name;
+        private final Button item_button_vote;
 
         ViewHolder(final View itemView) {
 
@@ -79,8 +81,9 @@ public class CandidatesRecyclerViewAdaptor extends RecyclerView.Adapter<Recycler
 
             this.item_image_candidate_symbol = itemView.findViewById(R.id.item_image_candidate_symbol);
             this.item_text_candidate_name = itemView.findViewById(R.id.item_text_candidate_name);
+            this.item_button_vote = itemView.findViewById(R.id.item_button_vote);
 
-            itemView.setOnClickListener(view -> mItemClickListener.onItemClick(itemView, getAdapterPosition(), candidates.get(getAdapterPosition())));
+            item_button_vote.setOnClickListener(view -> mItemClickListener.onItemClick(itemView, getAdapterPosition(), candidates.get(getAdapterPosition())));
         }
     }
 }

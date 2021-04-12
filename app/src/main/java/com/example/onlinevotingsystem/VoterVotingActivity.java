@@ -113,7 +113,7 @@ public class VoterVotingActivity extends AppCompatActivity {
 
                                 JSONObject assemblyCandidate = new JSONObject(assemblyCandidatesJsonObject.get(key).toString());
                                 Log.d(ApplicationSpecification.name, "Assembly Candidate : " + assemblyCandidate.toString());
-                                candidates.add(new CandidateModal(getPartySymbol(assemblyCandidate.getString("partyName")), assemblyCandidate.getString("name"), assemblyCandidate.getString("assemblyName"), assemblyCandidate.getString("parliamentName")));
+                                candidates.add(new CandidateModal(getPartySymbol(assemblyCandidate.getString("partyName"), activityContext), assemblyCandidate.getString("name"), assemblyCandidate.getString("assemblyName"), assemblyCandidate.getString("parliamentName"), assemblyCandidate.getString("partyName")));
                             }
                         }
                     } catch (JSONException e) {
@@ -121,6 +121,7 @@ public class VoterVotingActivity extends AppCompatActivity {
                     }
                 }
             }).execute();
+
         } else if (voteType.equals("parliment")) {
 
             SendOtpNetworkTask.showProgress(true, activityContext, progressBar, recyclerView);
@@ -147,7 +148,7 @@ public class VoterVotingActivity extends AppCompatActivity {
 
                                 JSONObject parlimentCandidate = new JSONObject(parlimentCandidatesJsonObject.get(key).toString());
                                 Log.d(ApplicationSpecification.name, "Parliment Candidate : " + parlimentCandidate.toString());
-                                candidates.add(new CandidateModal(getPartySymbol(parlimentCandidate.getString("partyName")), parlimentCandidate.getString("name"), parlimentCandidate.getString("assemblyName"), parlimentCandidate.getString("parliamentName")));
+                                candidates.add(new CandidateModal(getPartySymbol(parlimentCandidate.getString("partyName"), activityContext), parlimentCandidate.getString("name"), parlimentCandidate.getString("assemblyName"), parlimentCandidate.getString("parliamentName"), parlimentCandidate.getString("partyName")));
                             }
                         }
                     } catch (JSONException e) {
@@ -182,7 +183,7 @@ public class VoterVotingActivity extends AppCompatActivity {
 
                 DatabaseReference assemblyVotesNode = rootNode.getReference("assemblyVotes");
 
-                assemblyVotesNode.child(candidate.assemblyName).child(candidate.name).setValue(ServerValue.TIMESTAMP);
+                assemblyVotesNode.child(candidate.assemblyName).child(candidate.name).push().setValue(candidate.partyName);
 
                 votersNode.child(voterId).child("assemblyVoteDone").setValue(true);
 
@@ -195,7 +196,7 @@ public class VoterVotingActivity extends AppCompatActivity {
                 rootNode = FirebaseDatabase.getInstance();
                 DatabaseReference parlimentVotesNode = rootNode.getReference("parlimentVotes");
 
-                parlimentVotesNode.child(candidate.parliment).child(candidate.name).setValue(ServerValue.TIMESTAMP);
+                parlimentVotesNode.child(candidate.parliment).child(candidate.name).push().setValue(candidate.partyName);
 
                 votersNode.child(voterId).child("parlimentVoteDone").setValue(true);
 
@@ -206,7 +207,7 @@ public class VoterVotingActivity extends AppCompatActivity {
         });
     }
 
-    public Drawable getPartySymbol(String partyName) {
+    public static Drawable getPartySymbol(String partyName, Context activityContext) {
 
         switch (partyName) {
 
