@@ -60,6 +60,9 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 
             } else {
 
+//                new GetVoterNetworkTask(editTextVoterId.getText().toString().trim(),activityContext)
+
+
                 DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference votersNode = rootNode.child("voters");
 
