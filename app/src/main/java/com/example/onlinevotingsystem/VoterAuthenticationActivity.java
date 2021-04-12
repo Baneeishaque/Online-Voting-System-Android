@@ -103,6 +103,9 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
                                                 intent.putExtra("otp", otp);
                                                 intent.putExtra("voterMobile", voterMobile);
 
+                                                String assembly = voter.getAssemblyName();
+                                                String parliament = voter.getParliamentName();
+
                                                 Toast.makeText(activityContext, "Assembly : "+voter.assemblyName,Toast.LENGTH_LONG).show();
                                                 Toast.makeText(activityContext, "Parliment : "+voter.parliamentName,Toast.LENGTH_LONG).show();
                                                 Toast.makeText(activityContext, "Voter ID : "+voter.getVoterId(),Toast.LENGTH_LONG).show();
