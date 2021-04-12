@@ -38,6 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openResultActivity() {
 
-//        startActivity(new Intent(this, ParlimentResultActivity.class));
+        startActivity(new Intent(this, ChooseResultActivity.class));
     }
 }

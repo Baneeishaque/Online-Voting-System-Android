@@ -8,7 +8,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineVotingSystem">
-        <activity android:name=".VoterChooseVoteActivity"></activity>
+        <activity android:name=".ChooseResultActivity" />
+        <activity android:name=".VoterChooseVoteActivity" />
         <activity android:name=".ChooseAssemblyResultsActivity" />
         <activity android:name=".ChooseParlimentResultsActivity" />
         <activity android:name=".VoterVotingActivity" />
@@ -26,6 +27,9 @@
             android:name=".ParlimentResultActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".AssemblyResultActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".VoterAuthenticationActivity"
             android:parentActivityName=".MainActivity" />
         <activity
@@ -34,7 +38,6 @@
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

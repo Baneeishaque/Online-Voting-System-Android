@@ -25,6 +25,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class VoterOtpAuthenticationActivity extends AppCompatActivity {
 
     int otp;
+
     Context activityContext = this;
 
     @Override
@@ -36,7 +37,8 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
         otp = getIntent().getIntExtra("otp", 0);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent));
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // TODO : Auto Read Otp
@@ -48,29 +50,28 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Otp authentication success", Toast.LENGTH_LONG).show();
 
-                    SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-                    Toast.makeText(activityContext, "Assembly : " + sharedPreferences.getString("assembly", ""), Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Parliment : " + sharedPreferences.getString("parliment", ""), Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Voter ID : " + sharedPreferences.getString("voterId", ""), Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Response : " + sharedPreferences.getString("response", ""), Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Voter JSON Object : " + sharedPreferences.getString("voterJsonObject", ""), Toast.LENGTH_LONG).show();
+//                    SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+//                    Toast.makeText(activityContext, "Assembly : " + sharedPreferences.getString("assembly", ""), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(activityContext, "Parliment : " + sharedPreferences.getString("parliment", ""), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(activityContext, "Voter ID : " + sharedPreferences.getString("voterId", ""), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(activityContext, "Response : " + sharedPreferences.getString("response", ""), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(activityContext, "Voter JSON Object : " + sharedPreferences.getString("voterJsonObject", ""), Toast.LENGTH_LONG).show();
 
-
-                    Intent intent = new Intent(VoterOtpAuthenticationActivity.this, VoterVotingActivity.class);
+                    Intent intent = new Intent(VoterOtpAuthenticationActivity.this, VoterChooseVoteActivity.class);
 
                     String assembly = getIntent().getStringExtra("assembly");
                     String parliment = getIntent().getStringExtra("parliment");
                     String voterId = getIntent().getStringExtra("voterId");
                     String response = getIntent().getStringExtra("response");
-                    String voterJsonObjectString = getIntent().getStringExtra("voteJsonObject");
+                    String voterJsonObjectString = getIntent().getStringExtra("voterJsonObject");
 
-                    Log.d(ApplicationSpecification.name, "Assembly : " + assembly + ", Parliment : " + parliment + ", Voter : " + voterId);
+                    Log.d(ApplicationSpecification.name, "Assembly : " + assembly + ", Parliment : " + parliment + ", Voter : " + voterId + ", Response : " + response + ", Voter JSON Object : " + voterJsonObjectString);
 
-                    Toast.makeText(activityContext, "Assembly : " + assembly, Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Parliment : " + parliment, Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Voter ID : " + voterId, Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Response : " + response, Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Voter JSON Object : " + voterJsonObjectString, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Assembly : " + assembly, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Parliment : " + parliment, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Voter ID : " + voterId, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Response : " + response, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Voter JSON Object : " + voterJsonObjectString, Toast.LENGTH_LONG).show();
 
                     intent.putExtra("assembly", assembly);
                     intent.putExtra("parliment", parliment);

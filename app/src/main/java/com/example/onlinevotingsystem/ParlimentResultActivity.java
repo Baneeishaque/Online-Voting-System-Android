@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,8 +20,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
+
+import static com.example.onlinevotingsystem.AssemblyResultActivity.calculateWinners;
+import static com.example.onlinevotingsystem.AssemblyResultActivity.getFirstItemValueFromJsonObject;
+import static com.example.onlinevotingsystem.AssemblyResultActivity.presentWinners;
+import static com.example.onlinevotingsystem.VoterVotingActivity.getPartySymbol;
 
 public class ParlimentResultActivity extends AppCompatActivity {
 
@@ -45,28 +55,70 @@ public class ParlimentResultActivity extends AppCompatActivity {
 
         String parliment = getIntent().getStringExtra("parliment");
         TextView textViewTitle = findViewById(R.id.text_view_title);
-        textViewTitle.setText("Voting Results : Parliment - " + parliment);
+        textViewTitle.setText("Results : Parliment - " + parliment);
 
-        DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference parlimentVotesNode = rootNode.child("parlimentVotes");
+//        DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference parlimentVotesNode = rootNode.child("parlimentVotes");
+//
+//        parlimentVotesNode.child(parliment).get().addOnCompleteListener(task -> {
+//
+//            if (task.isSuccessful()) {
+//
+//                DataSnapshot data = task.getResult();
+//                if (data != null && data.exists()) {
+//
+//
+//                } else {
+//
+//                    Toast.makeText(getApplicationContext(), "No Votes Exists!", Toast.LENGTH_LONG).show();
+//                }
+//            } else {
+//
+//                Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
+//            }
+//        });
 
-        parlimentVotesNode.child(parliment).get().addOnCompleteListener(task -> {
+        SendOtpNetworkTask.showProgress(true, this, progressBar, recyclerView);
+        new GetParlimentResultsNetworkTask(parliment, this, progressBar, recyclerView, response -> {
 
-            if (task.isSuccessful()) {
+//                    Toast.makeText(getApplicationContext(), "Response : " + response, Toast.LENGTH_LONG).show();
+            Log.d(ApplicationSpecification.name, "Response : " + response);
 
-                DataSnapshot data = task.getResult();
-                if (data != null && data.exists()) {
+            if (response.equals("null")) {
 
+                Toast.makeText(getApplicationContext(), "No Votes!", Toast.LENGTH_LONG).show();
 
-                } else {
-
-                    Toast.makeText(getApplicationContext(), "No Votes Exists!", Toast.LENGTH_LONG).show();
-                }
             } else {
 
-                Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
+                try {
+
+                    JSONObject candidatesJsonObject = new JSONObject(response);
+                    Log.d(ApplicationSpecification.name, "Parliment " + parliment + " Votes JSON Object : " + candidatesJsonObject.toString());
+
+                    Iterator<?> keys = candidatesJsonObject.keys();
+                    while (keys.hasNext()) {
+                        String candidate = (String) keys.next();
+                        if (candidatesJsonObject.get(candidate) instanceof JSONObject) {
+
+                            JSONObject candidateVotes = new JSONObject(candidatesJsonObject.get(candidate).toString());
+                            Log.d(ApplicationSpecification.name, "Parliment Candidate - " + candidate + " Votes : " + candidateVotes.toString());
+                            results.add(new ResultModal(getPartySymbol(getFirstItemValueFromJsonObject(candidateVotes), ParlimentResultActivity.this), candidate, candidateVotes.length()));
+                        }
+                    }
+
+                    ArrayList<ResultModal> winners = calculateWinners(results);
+
+                    findViewById(R.id.constraintLayout).setVisibility(View.VISIBLE);
+                    ImageView imageViewWinnerPartySymbol = findViewById(R.id.item_image_candidate_symbol);
+                    TextView textViewWinnerName = findViewById(R.id.item_text_candidate_name);
+
+                    presentWinners(winners, imageViewWinnerPartySymbol, textViewWinnerName);
+
+                } catch (JSONException e) {
+                    Log.d(ApplicationSpecification.name, "Exception : " + e.getLocalizedMessage());
+                }
             }
-        });
+        }).execute();
 
 //        ResultModal result1 = new ResultModal(ContextCompat.getDrawable(this, R.drawable.udf), "UDF", 45);
 //        ResultModal result2 = new ResultModal(ContextCompat.getDrawable(this, R.drawable.ldf), "LDF", 40);

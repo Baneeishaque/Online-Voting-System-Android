@@ -1,7 +1,5 @@
 package com.example.onlinevotingsystem;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
@@ -11,20 +9,17 @@ import android.widget.Toast;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import static com.example.onlinevotingsystem.SendOtpNetworkTask.showProgress;
 
-public class GetVoterNetworkTask extends AsyncTask<Void, Void, String[]> {
+public class GetParlimentCandidatesNetworkTask extends AsyncTask<Void, Void, String[]> {
 
-    String voterId;
+    String parlimentName;
 
     Context activityContext;
 
@@ -33,9 +28,9 @@ public class GetVoterNetworkTask extends AsyncTask<Void, Void, String[]> {
 
     AsyncResponse asyncResponse;
 
-    public GetVoterNetworkTask(String voterId, Context activityContext, ProgressBar progressBar, View formView, AsyncResponse asyncResponse) {
+    public GetParlimentCandidatesNetworkTask(String parlimentName, Context activityContext, ProgressBar progressBar, View formView, AsyncResponse asyncResponse) {
 
-        this.voterId = voterId;
+        this.parlimentName = parlimentName;
         this.activityContext = activityContext;
         this.progressBar = progressBar;
         this.formView = formView;
@@ -51,7 +46,7 @@ public class GetVoterNetworkTask extends AsyncTask<Void, Void, String[]> {
             String networkActionResponse;
 
             defaultHttpClient = new DefaultHttpClient();
-            httpGet = new HttpGet(ServerSpecification.serverEndPoint + "/voters/" + voterId + ".json");
+            httpGet = new HttpGet(ServerSpecification.serverEndPoint+"/parlimentCandidates/" + parlimentName + ".json");
 
             ResponseHandler<String> basicResponseHandler = new BasicResponseHandler();
 
