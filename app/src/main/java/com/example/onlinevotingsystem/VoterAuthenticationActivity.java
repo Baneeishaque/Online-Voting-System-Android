@@ -2,6 +2,7 @@ package com.example.onlinevotingsystem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -69,6 +70,11 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Response : " + response, Toast.LENGTH_LONG).show();
 
+                    SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                    editor.putString("response",response);
+                    editor.apply();
+
                     if (response.equals("null")) {
 
                         Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
@@ -78,6 +84,8 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
                         try {
 
                             JSONObject voterJsonObject = new JSONObject(response);
+                            editor.putString("voterJSONObject",voterJsonObject.toString());
+                            editor.apply();
 
                             String voterMobile = voterJsonObject.getString("mobileNumber");
 
@@ -99,16 +107,37 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 
                                             Toast.makeText(getApplicationContext(), "Otp send success...", Toast.LENGTH_SHORT).show();
 
-                                            Intent intent = new Intent(activityContext, VoterOtpAuthenticationActivity.class);
+                                            Intent intent = new Intent(VoterAuthenticationActivity.this, VoterOtpAuthenticationActivity.class);
 
                                             intent.putExtra("otp", otp);
                                             intent.putExtra("voterMobile", voterMobile);
+                                            intent.putExtra("response", response);
+                                            intent.putExtra("voterJsonObject", voterJsonObject.toString());
+
+//                                            {
+//                                                "aadharNumber":"67",
+//                                                    "address":"V5j",
+//                                                    "age":"67",
+//                                                    "assemblyName":"Malappuram",
+//                                                    "assemblyVoteDone":false,
+//                                                    "dob":"APR 12 2021",
+//                                                    "gender":"Male",
+//                                                    "mobileNumber":"9446827218",
+//                                                    "name":"V5",
+//                                                    "parliamentName":"Malappuram",
+//                                                    "parlimentVoteDone":false,
+//                                                    "voterId":"v3"
+//                                            }
 
                                             String assembly = voterJsonObject.getString("assemblyName");
+                                            editor.putString("assemblyName",assembly);
                                             String parliment = voterJsonObject.getString("parliamentName");
+                                            editor.putString("parliment",parliment);
                                             String voterId = voterJsonObject.getString("voterId");
+                                            editor.putString("voterId",voterId);
+                                            editor.apply();
 
-                                            Log.d(ApplicationSpecification.name,"Assembly : "+assembly+", Parliment : "+parliment+", Voter : "+voterId);
+                                            Log.d(ApplicationSpecification.name, "Assembly : " + assembly + ", Parliment : " + parliment + ", Voter : " + voterId);
 
                                             Toast.makeText(activityContext, "Assembly : " + assembly, Toast.LENGTH_LONG).show();
                                             Toast.makeText(activityContext, "Parliment : " + parliment, Toast.LENGTH_LONG).show();

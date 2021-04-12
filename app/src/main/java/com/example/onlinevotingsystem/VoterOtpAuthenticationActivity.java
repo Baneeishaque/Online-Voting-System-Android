@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,17 +48,29 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Otp authentication success", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(activityContext, VoterVotingActivity.class);
+                    SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+                    Toast.makeText(activityContext, "Assembly : " + sharedPreferences.getString("assembly", ""), Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Parliment : " + sharedPreferences.getString("parliment", ""), Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Voter ID : " + sharedPreferences.getString("voterId", ""), Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Response : " + sharedPreferences.getString("response", ""), Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Voter JSON Object : " + sharedPreferences.getString("voterJsonObject", ""), Toast.LENGTH_LONG).show();
+
+
+                    Intent intent = new Intent(VoterOtpAuthenticationActivity.this, VoterVotingActivity.class);
 
                     String assembly = getIntent().getStringExtra("assembly");
                     String parliment = getIntent().getStringExtra("parliment");
                     String voterId = getIntent().getStringExtra("voterId");
+                    String response = getIntent().getStringExtra("response");
+                    String voterJsonObjectString = getIntent().getStringExtra("voteJsonObject");
 
                     Log.d(ApplicationSpecification.name, "Assembly : " + assembly + ", Parliment : " + parliment + ", Voter : " + voterId);
 
                     Toast.makeText(activityContext, "Assembly : " + assembly, Toast.LENGTH_LONG).show();
                     Toast.makeText(activityContext, "Parliment : " + parliment, Toast.LENGTH_LONG).show();
                     Toast.makeText(activityContext, "Voter ID : " + voterId, Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Response : " + response, Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Voter JSON Object : " + voterJsonObjectString, Toast.LENGTH_LONG).show();
 
                     intent.putExtra("assembly", assembly);
                     intent.putExtra("parliment", parliment);
