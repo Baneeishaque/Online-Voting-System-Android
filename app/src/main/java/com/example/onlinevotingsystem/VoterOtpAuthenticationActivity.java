@@ -48,9 +48,15 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Otp authentication success", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(activityContext, VoterVotingActivity.class);
+
+                    Toast.makeText(activityContext, "Assembly : "+getIntent().getStringExtra("assembly"),Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Parliment : "+getIntent().getStringExtra("parliment"),Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Voter ID : "+getIntent().getStringExtra("voterId"),Toast.LENGTH_LONG).show();
+
                     intent.putExtra("assembly", getIntent().getStringExtra("assembly"));
                     intent.putExtra("parliment", getIntent().getStringExtra("parliment"));
                     intent.putExtra("voterId",getIntent().getStringExtra("voterId"));
+                    
                     startActivity(intent);
 
                 } else {

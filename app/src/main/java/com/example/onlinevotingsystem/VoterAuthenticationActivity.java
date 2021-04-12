@@ -83,7 +83,7 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 
                                     Random rnd = new Random();
                                     int otp = 100000 + rnd.nextInt(900000);
-                                    Toast.makeText(getApplicationContext(), "Otp : " + otp, Toast.LENGTH_SHORT).show();
+                                    // Toast.makeText(getApplicationContext(), "Otp : " + otp, Toast.LENGTH_SHORT).show();
 
                                     ProgressBar progressBar = findViewById(R.id.progressBar);
                                     ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
@@ -102,8 +102,13 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 
                                                 intent.putExtra("otp", otp);
                                                 intent.putExtra("voterMobile", voterMobile);
-                                                intent.putExtra("assembly",voter.getAssemblyName());
-                                                intent.putExtra("parliment",voter.getParliamentName());
+
+                                                Toast.makeText(activityContext, "Assembly : "+voter.assemblyName,Toast.LENGTH_LONG).show();
+                                                Toast.makeText(activityContext, "Parliment : "+voter.parliamentName,Toast.LENGTH_LONG).show();
+                                                Toast.makeText(activityContext, "Voter ID : "+voter.getVoterId(),Toast.LENGTH_LONG).show();
+                                                
+                                                intent.putExtra("assembly",voter.assemblyName);
+                                                intent.putExtra("parliment",voter.parliamentName);
                                                 intent.putExtra("voterId",voter.getVoterId());
 
                                                 startActivity(intent);
