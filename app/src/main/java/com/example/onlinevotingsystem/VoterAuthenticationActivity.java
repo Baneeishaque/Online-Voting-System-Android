@@ -3,31 +3,24 @@ package com.example.onlinevotingsystem;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.Random;
 
 public class VoterAuthenticationActivity extends AppCompatActivity {
 
@@ -43,7 +36,8 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_voter_authentication);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(VoterAuthenticationActivity.this, R.color.colorAccent));
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         buttonGetOtp = findViewById(R.id.buttonGetOtp);
@@ -80,24 +74,64 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 
                             Log.d(ApplicationSpecification.name, "Voter : " + voter);
 
-                            if (voter != null && voter.getMobileNumber().equals(editTextPhoneNumber.getText().toString())) {
+                            if (voter != null) {
 
-                                Toast.makeText(getApplicationContext(), "Authentication Success!", Toast.LENGTH_LONG).show();
-                                Intent intToAdmin = new Intent(activityContext, VoterOtpAuthenticationActivity.class);
-                                startActivity(intToAdmin);
+                                String voterMobile = voter.getMobileNumber();
+                                if (voterMobile.equals(editTextPhoneNumber.getText().toString())) {
+
+                                    Toast.makeText(getApplicationContext(), "Authentication Success!", Toast.LENGTH_LONG).show();
+
+                                    Random rnd = new Random();
+                                    int otp = 100000 + rnd.nextInt(900000);
+                                    Toast.makeText(getApplicationContext(), "Otp : " + otp, Toast.LENGTH_SHORT).show();
+
+                                    ProgressBar progressBar = findViewById(R.id.progressBar);
+                                    ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+
+                                    SendOtpNetworkTask.showProgress(true,this,progressBar,constraintLayout);
+
+                                    //TODO :Check for SMS balance
+                                    new SendOtpNetworkTask(String.valueOf(otp), voterMobile, this, progressBar, constraintLayout, jsonObject -> {
+
+                                        try {
+                                            if (jsonObject.getString("return").equals("true")) {
+
+                                                Toast.makeText(getApplicationContext(), "Otp send success...", Toast.LENGTH_SHORT).show();
+
+                                                Intent intent = new Intent(activityContext, VoterOtpAuthenticationActivity.class);
+
+                                                intent.putExtra("otp", otp);
+                                                intent.putExtra("voterMobile", voterMobile);
+                                                intent.putExtra("assembly",voter.getAssemblyName());
+                                                intent.putExtra("parliment",voter.getParliamentName());
+                                                intent.putExtra("voterId",voter.getVoterId());
+
+                                                startActivity(intent);
+
+                                            } else {
+
+                                                Toast.makeText(getApplicationContext(), "Otp send failed, try again...", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } catch (JSONException e) {
+
+                                            Toast.makeText(getApplicationContext(), "Error : " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).execute();
+
+
+                                } else {
+
+                                    Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
+                                }
 
                             } else {
 
-                                Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
                             }
-
                         } else {
 
-                            Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
+                            Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
                         }
-                    } else {
-
-                        Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
                     }
                 });
             }

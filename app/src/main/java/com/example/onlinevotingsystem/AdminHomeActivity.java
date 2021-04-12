@@ -48,12 +48,12 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         findViewById(R.id.button_view_assembly_results).setOnClickListener(v -> {
 
-            startActivity(new Intent(AdminHomeActivity.this, ChooseAssemblyActivity.class));
+            startActivity(new Intent(AdminHomeActivity.this, ChooseAssemblyResultsActivity.class));
         });
         
         findViewById(R.id.button_view_parliment_results).setOnClickListener(v -> {
 
-             startActivity(new Intent(AdminHomeActivity.this, ChooseParlimentActivity.class));
+             startActivity(new Intent(AdminHomeActivity.this, ChooseParlimentResultsActivity.class));
         });
     }
 }

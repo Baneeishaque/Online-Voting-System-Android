@@ -10,7 +10,7 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-public class ChooseAssemblyActivity extends AppCompatActivity {
+public class ChooseAssemblyResultsActivity extends AppCompatActivity {
 
     // TODO : Fix layout problems
     Context activityContext = this;

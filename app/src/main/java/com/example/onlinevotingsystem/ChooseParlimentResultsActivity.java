@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class ChooseParlimentActivity extends AppCompatActivity {
+public class ChooseParlimentResultsActivity extends AppCompatActivity {
 
     // TODO : Fix layout problems
     Context activityContext = this;
