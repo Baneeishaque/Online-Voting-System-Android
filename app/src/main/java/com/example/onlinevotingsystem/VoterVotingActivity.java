@@ -14,16 +14,15 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 public class VoterVotingActivity extends AppCompatActivity {
 
@@ -36,6 +35,7 @@ public class VoterVotingActivity extends AppCompatActivity {
 
     ArrayList<CandidateModal> candidates = new ArrayList<>();
     private final CandidatesRecyclerViewAdaptor candidatesRecyclerViewAdaptor = new CandidatesRecyclerViewAdaptor(candidates);
+    private FirebaseDatabase rootNode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +113,7 @@ public class VoterVotingActivity extends AppCompatActivity {
 
                                 JSONObject assemblyCandidate = new JSONObject(assemblyCandidatesJsonObject.get(key).toString());
                                 Log.d(ApplicationSpecification.name, "Assembly Candidate : " + assemblyCandidate.toString());
-                                candidates.add(new CandidateModal(getPartySymbol(assemblyCandidate.getString("partyName")), assemblyCandidate.getString("name")));
+                                candidates.add(new CandidateModal(getPartySymbol(assemblyCandidate.getString("partyName")), assemblyCandidate.getString("name"), assemblyCandidate.getString("assemblyName"), assemblyCandidate.getString("parliamentName")));
                             }
                         }
                     } catch (JSONException e) {
@@ -147,7 +147,7 @@ public class VoterVotingActivity extends AppCompatActivity {
 
                                 JSONObject parlimentCandidate = new JSONObject(parlimentCandidatesJsonObject.get(key).toString());
                                 Log.d(ApplicationSpecification.name, "Parliment Candidate : " + parlimentCandidate.toString());
-                                candidates.add(new CandidateModal(getPartySymbol(parlimentCandidate.getString("partyName")), parlimentCandidate.getString("name")));
+                                candidates.add(new CandidateModal(getPartySymbol(parlimentCandidate.getString("partyName")), parlimentCandidate.getString("name"), parlimentCandidate.getString("assemblyName"), parlimentCandidate.getString("parliamentName")));
                             }
                         }
                     } catch (JSONException e) {
@@ -176,6 +176,33 @@ public class VoterVotingActivity extends AppCompatActivity {
             //handle item click events here
             Toast.makeText(getApplicationContext(), "Selected : " + candidate.getName(), Toast.LENGTH_LONG).show();
 
+            rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference votersNode = rootNode.getReference("voters");
+            if (voteType.equals("assembly")) {
+
+                DatabaseReference assemblyVotesNode = rootNode.getReference("assemblyVotes");
+
+                assemblyVotesNode.child(candidate.assemblyName).child(candidate.name).setValue(ServerValue.TIMESTAMP);
+
+                votersNode.child(voterId).child("assemblyVoteDone").setValue(true);
+
+                Toast.makeText(getApplicationContext(), "Vote submitted successfully!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(activityContext, MainActivity.class));
+                this.finish();
+
+            } else if (voteType.equals("parliment")) {
+
+                rootNode = FirebaseDatabase.getInstance();
+                DatabaseReference parlimentVotesNode = rootNode.getReference("parlimentVotes");
+
+                parlimentVotesNode.child(candidate.parliment).child(candidate.name).setValue(ServerValue.TIMESTAMP);
+
+                votersNode.child(voterId).child("parlimentVoteDone").setValue(true);
+
+                Toast.makeText(getApplicationContext(), "Vote submitted successfully!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(activityContext, MainActivity.class));
+                this.finish();
+            }
         });
     }
 

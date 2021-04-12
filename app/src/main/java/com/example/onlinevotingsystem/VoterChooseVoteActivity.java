@@ -89,10 +89,10 @@ public class VoterChooseVoteActivity extends AppCompatActivity {
 
                     Log.d(ApplicationSpecification.name, "Voter : " + voter);
 
-
-                    if (voter.isAssemblyVoteDone) {
+                    if (voter.isParlimentVoteDone) {
 
                         Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
+
                     } else {
 
                         Intent intent = new Intent(activityContext, VoterVotingActivity.class);
