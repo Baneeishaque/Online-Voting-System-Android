@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -46,16 +47,15 @@ public class GetVoterNetworkTask extends AsyncTask<Void, Void, String[]> {
 
         try {
             DefaultHttpClient defaultHttpClient;
-            HttpPost httpPost;
+            HttpGet httpGet;
             String networkActionResponse;
 
             defaultHttpClient = new DefaultHttpClient();
-            httpPost = new HttpPost("https://online-voting-system-a5b27-default-rtdb.firebaseio.com/voters/" + voterId + ".json");
+            httpGet = new HttpGet("https://online-voting-system-a5b27-default-rtdb.firebaseio.com/voters/" + voterId + ".json");
 
             ResponseHandler<String> basicResponseHandler = new BasicResponseHandler();
 
-            networkActionResponse = defaultHttpClient.execute(httpPost, basicResponseHandler);
-
+            networkActionResponse = defaultHttpClient.execute(httpGet, basicResponseHandler);
 
             return new String[]{"0", networkActionResponse};
 
@@ -84,12 +84,8 @@ public class GetVoterNetworkTask extends AsyncTask<Void, Void, String[]> {
 
         } else {
 
-
             asyncResponse.processFinish(networkActionResponseArray[1]);
-
-
         }
-
     }
 
     @Override

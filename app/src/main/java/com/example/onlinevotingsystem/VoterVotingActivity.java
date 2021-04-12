@@ -48,33 +48,33 @@ public class VoterVotingActivity extends AppCompatActivity {
         // Log.d(ApplicationSpecification.name, "type : " + type);
         // Log.d(ApplicationSpecification.name, "typeValue : " + typeValue);
 
-        DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference typeCandidatesNode = rootNode.child("assembly" + "Candidates");
-
-        typeCandidatesNode.child("Malappuram").get().addOnCompleteListener(task -> {
-
-            if (task.isSuccessful()) {
-
-                DataSnapshot data = task.getResult();
-                if (data != null && data.exists()) {
-
-                    Log.d(ApplicationSpecification.name, "Data : " + data.toString());
-
-                    for (DataSnapshot snapshot : data.getChildren()) {
-
-                        CandidateInfoModal candidate = snapshot.getValue(CandidateInfoModal.class);
-                        candidates.add(new CandidateModal(getPartySymbol(candidate.partyName), candidate.name));
-                    }
-                } else {
-
-                    Toast.makeText(getApplicationContext(), "No Candidates...", Toast.LENGTH_LONG).show();
-                }
-            } else {
-
-                Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
-            }
-
-        });
+//        DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference typeCandidatesNode = rootNode.child("assembly" + "Candidates");
+//
+//        typeCandidatesNode.child("Malappuram").get().addOnCompleteListener(task -> {
+//
+//            if (task.isSuccessful()) {
+//
+//                DataSnapshot data = task.getResult();
+//                if (data != null && data.exists()) {
+//
+//                    Log.d(ApplicationSpecification.name, "Data : " + data.toString());
+//
+////                    for (DataSnapshot snapshot : data.getChildren()) {
+////
+////                        CandidateInfoModal candidate = snapshot.getValue(CandidateInfoModal.class);
+////                        candidates.add(new CandidateModal(getPartySymbol(candidate.partyName), candidate.name));
+////                    }
+//                } else {
+//
+//                    Toast.makeText(getApplicationContext(), "No Candidates...", Toast.LENGTH_LONG).show();
+//                }
+//            } else {
+//
+//                Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
+//            }
+//
+//        });
 
 //        CandidateModal candidate1 = new CandidateModal(ContextCompat.getDrawable(this, R.drawable.udf), "UDF");
 //        CandidateModal candidate2 = new CandidateModal(ContextCompat.getDrawable(this, R.drawable.ldf), "LDF");

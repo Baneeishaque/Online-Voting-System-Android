@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Random;
 
@@ -60,91 +61,168 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 
             } else {
 
-//                new GetVoterNetworkTask(editTextVoterId.getText().toString().trim(),activityContext)
+                ProgressBar progressBar = findViewById(R.id.progressBar);
+                ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
 
+                SendOtpNetworkTask.showProgress(true, activityContext, progressBar, constraintLayout);
+                new GetVoterNetworkTask(editTextVoterId.getText().toString().trim(), activityContext, progressBar, constraintLayout, response -> {
 
-                DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference votersNode = rootNode.child("voters");
+                    Toast.makeText(getApplicationContext(), "Response : " + response, Toast.LENGTH_LONG).show();
 
-                votersNode.child(editTextVoterId.getText().toString().trim()).get().addOnCompleteListener(task -> {
+                    if (response.equals("null")) {
 
-                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
 
-                        DataSnapshot data = task.getResult();
-                        if (data != null && data.exists()) {
+                    } else {
 
-                            VoterInfoModal voter = data.getValue(VoterInfoModal.class);
+                        try {
 
-                            Log.d(ApplicationSpecification.name, "Voter : " + voter);
+                            JSONObject voterJsonObject = new JSONObject(response);
 
-                            if (voter != null) {
+                            String voterMobile = voterJsonObject.getString("mobileNumber");
 
-                                String voterMobile = voter.getMobileNumber();
-                                if (voterMobile.equals(editTextPhoneNumber.getText().toString())) {
+                            if (voterMobile.equals(editTextPhoneNumber.getText().toString().trim())) {
 
-                                    Toast.makeText(getApplicationContext(), "Authentication Success!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Authentication Success!", Toast.LENGTH_LONG).show();
 
-                                    Random rnd = new Random();
-                                    int otp = 100000 + rnd.nextInt(900000);
-                                    // Toast.makeText(getApplicationContext(), "Otp : " + otp, Toast.LENGTH_SHORT).show();
+                                Random rnd = new Random();
+                                int otp = 100000 + rnd.nextInt(900000);
+                                // Toast.makeText(getApplicationContext(), "Otp : " + otp, Toast.LENGTH_SHORT).show();
 
-                                    ProgressBar progressBar = findViewById(R.id.progressBar);
-                                    ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+                                SendOtpNetworkTask.showProgress(true, activityContext, progressBar, constraintLayout);
 
-                                    SendOtpNetworkTask.showProgress(true,this,progressBar,constraintLayout);
+                                //TODO :Check for SMS balance
+                                new SendOtpNetworkTask(String.valueOf(otp), voterMobile, activityContext, progressBar, constraintLayout, jsonObject -> {
 
-                                    //TODO :Check for SMS balance
-                                    new SendOtpNetworkTask(String.valueOf(otp), voterMobile, this, progressBar, constraintLayout, jsonObject -> {
+                                    try {
+                                        if (jsonObject.getString("return").equals("true")) {
 
-                                        try {
-                                            if (jsonObject.getString("return").equals("true")) {
+                                            Toast.makeText(getApplicationContext(), "Otp send success...", Toast.LENGTH_SHORT).show();
 
-                                                Toast.makeText(getApplicationContext(), "Otp send success...", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(activityContext, VoterOtpAuthenticationActivity.class);
 
-                                                Intent intent = new Intent(activityContext, VoterOtpAuthenticationActivity.class);
+                                            intent.putExtra("otp", otp);
+                                            intent.putExtra("voterMobile", voterMobile);
 
-                                                intent.putExtra("otp", otp);
-                                                intent.putExtra("voterMobile", voterMobile);
+                                            String assembly = voterJsonObject.getString("assemblyName");
+                                            String parliment = voterJsonObject.getString("parliamentName");
+                                            String voterId = voterJsonObject.getString("voterId");
 
-                                                String assembly = voter.getAssemblyName();
-                                                String parliament = voter.getParliamentName();
+                                            Log.d(ApplicationSpecification.name,"Assembly : "+assembly+", Parliment : "+parliment+", Voter : "+voterId);
 
-                                                Toast.makeText(activityContext, "Assembly : "+voter.assemblyName,Toast.LENGTH_LONG).show();
-                                                Toast.makeText(activityContext, "Parliment : "+voter.parliamentName,Toast.LENGTH_LONG).show();
-                                                Toast.makeText(activityContext, "Voter ID : "+voter.getVoterId(),Toast.LENGTH_LONG).show();
-                                                
-                                                intent.putExtra("assembly",voter.assemblyName);
-                                                intent.putExtra("parliment",voter.parliamentName);
-                                                intent.putExtra("voterId",voter.getVoterId());
+                                            Toast.makeText(activityContext, "Assembly : " + assembly, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(activityContext, "Parliment : " + parliment, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(activityContext, "Voter ID : " + voterId, Toast.LENGTH_LONG).show();
 
-                                                startActivity(intent);
+                                            intent.putExtra("assembly", assembly);
+                                            intent.putExtra("parliment", parliment);
+                                            intent.putExtra("voterId", voterId);
 
-                                            } else {
+                                            startActivity(intent);
 
-                                                Toast.makeText(getApplicationContext(), "Otp send failed, try again...", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } catch (JSONException e) {
+                                        } else {
 
-                                            Toast.makeText(getApplicationContext(), "Error : " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Otp send failed, try again...", Toast.LENGTH_SHORT).show();
                                         }
-                                    }).execute();
+                                    } catch (JSONException e) {
 
-
-                                } else {
-
-                                    Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
-                                }
+                                        Toast.makeText(getApplicationContext(), "Error : " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }).execute();
 
                             } else {
 
-                                Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
-                            }
-                        } else {
+                                Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
 
-                            Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
+                            }
+                        } catch (JSONException e) {
+                            Log.d(ApplicationSpecification.name, "Exception : " + e.getLocalizedMessage());
                         }
                     }
-                });
+                }).execute();
+
+//                DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
+//                DatabaseReference votersNode = rootNode.child("voters");
+//
+//                votersNode.child(editTextVoterId.getText().toString().trim()).get().addOnCompleteListener(task -> {
+//
+//                    if (task.isSuccessful()) {
+//
+//                        DataSnapshot data = task.getResult();
+//                        if (data != null && data.exists()) {
+//
+//                            VoterInfoModal voter = data.getValue(VoterInfoModal.class);
+//
+//                            Log.d(ApplicationSpecification.name, "Voter : " + voter);
+//
+//                            if (voter != null) {
+//
+//                                String voterMobile = voter.getMobileNumber();
+//                                if (voterMobile.equals(editTextPhoneNumber.getText().toString())) {
+//
+//                                    Toast.makeText(getApplicationContext(), "Authentication Success!", Toast.LENGTH_LONG).show();
+//
+//                                    Random rnd = new Random();
+//                                    int otp = 100000 + rnd.nextInt(900000);
+//                                    // Toast.makeText(getApplicationContext(), "Otp : " + otp, Toast.LENGTH_SHORT).show();
+//
+//                                    ProgressBar progressBar = findViewById(R.id.progressBar);
+//                                    ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+//
+//                                    SendOtpNetworkTask.showProgress(true, this, progressBar, constraintLayout);
+//
+//                                    //TODO :Check for SMS balance
+//                                    new SendOtpNetworkTask(String.valueOf(otp), voterMobile, this, progressBar, constraintLayout, jsonObject -> {
+//
+//                                        try {
+//                                            if (jsonObject.getString("return").equals("true")) {
+//
+//                                                Toast.makeText(getApplicationContext(), "Otp send success...", Toast.LENGTH_SHORT).show();
+//
+//                                                Intent intent = new Intent(activityContext, VoterOtpAuthenticationActivity.class);
+//
+//                                                intent.putExtra("otp", otp);
+//                                                intent.putExtra("voterMobile", voterMobile);
+//
+//                                                String assembly = voter.getAssemblyName();
+//                                                String parliament = voter.getParliamentName();
+//
+//                                                Toast.makeText(activityContext, "Assembly : " + voter.assemblyName, Toast.LENGTH_LONG).show();
+//                                                Toast.makeText(activityContext, "Parliment : " + voter.parliamentName, Toast.LENGTH_LONG).show();
+//                                                Toast.makeText(activityContext, "Voter ID : " + voter.getVoterId(), Toast.LENGTH_LONG).show();
+//
+//                                                intent.putExtra("assembly", voter.assemblyName);
+//                                                intent.putExtra("parliment", voter.parliamentName);
+//                                                intent.putExtra("voterId", voter.getVoterId());
+//
+//                                                startActivity(intent);
+//
+//                                            } else {
+//
+//                                                Toast.makeText(getApplicationContext(), "Otp send failed, try again...", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        } catch (JSONException e) {
+//
+//                                            Toast.makeText(getApplicationContext(), "Error : " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    }).execute();
+//
+//
+//                                } else {
+//
+//                                    Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
+//                                }
+//
+//                            } else {
+//
+//                                Toast.makeText(getApplicationContext(), "Unrecognised Voter!", Toast.LENGTH_LONG).show();
+//                            }
+//                        } else {
+//
+//                            Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
+//                        }
+//                    }
+//                });
             }
         });
     }

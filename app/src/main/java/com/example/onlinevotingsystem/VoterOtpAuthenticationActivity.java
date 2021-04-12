@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -25,7 +26,6 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
     int otp;
     Context activityContext = this;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,14 +49,20 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(activityContext, VoterVotingActivity.class);
 
-                    Toast.makeText(activityContext, "Assembly : "+getIntent().getStringExtra("assembly"),Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Parliment : "+getIntent().getStringExtra("parliment"),Toast.LENGTH_LONG).show();
-                    Toast.makeText(activityContext, "Voter ID : "+getIntent().getStringExtra("voterId"),Toast.LENGTH_LONG).show();
+                    String assembly = getIntent().getStringExtra("assembly");
+                    String parliment = getIntent().getStringExtra("parliment");
+                    String voterId = getIntent().getStringExtra("voterId");
 
-                    intent.putExtra("assembly", getIntent().getStringExtra("assembly"));
-                    intent.putExtra("parliment", getIntent().getStringExtra("parliment"));
-                    intent.putExtra("voterId",getIntent().getStringExtra("voterId"));
-                    
+                    Log.d(ApplicationSpecification.name, "Assembly : " + assembly + ", Parliment : " + parliment + ", Voter : " + voterId);
+
+                    Toast.makeText(activityContext, "Assembly : " + assembly, Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Parliment : " + parliment, Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, "Voter ID : " + voterId, Toast.LENGTH_LONG).show();
+
+                    intent.putExtra("assembly", assembly);
+                    intent.putExtra("parliment", parliment);
+                    intent.putExtra("voterId", voterId);
+
                     startActivity(intent);
 
                 } else {
