@@ -7,6 +7,14 @@
     android:background="#EEEEEE"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/text_view_election"
         android:layout_width="match_parent"

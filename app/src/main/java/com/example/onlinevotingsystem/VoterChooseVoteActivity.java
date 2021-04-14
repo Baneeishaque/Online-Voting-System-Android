@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +17,9 @@ public class VoterChooseVoteActivity extends AppCompatActivity {
 
     Context activityContext = this;
 
-    public static String type, typeValue, voterId;
+//    public static String type, typeValue, voterId;
+
+    public ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,89 +27,97 @@ public class VoterChooseVoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voter_choose_vote);
 
+        progressBar = findViewById(R.id.progressBar);
+
         findViewById(R.id.button_vote_assembly).setOnClickListener(v -> {
 
-            DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference votersNode = rootNode.child("voters");
+            AdminHomeActivity.checkVotingTime(VoterChooseVoteActivity.this, progressBar, getApplicationContext(), () -> {
 
-            votersNode.child(getIntent().getStringExtra("voterId")).get().addOnCompleteListener(task -> {
+                DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference votersNode = rootNode.child("voters");
 
-                if (task.isSuccessful()) {
+                votersNode.child(getIntent().getStringExtra("voterId")).get().addOnCompleteListener(task -> {
 
-                    DataSnapshot data = task.getResult();
+                    if (task.isSuccessful()) {
 
-                    VoterInfoModal voter = data.getValue(VoterInfoModal.class);
+                        DataSnapshot data = task.getResult();
 
-                    Log.d(ApplicationSpecification.name, "Voter : " + voter);
+                        VoterInfoModal voter = data.getValue(VoterInfoModal.class);
 
-                    if (voter.isAssemblyVoteDone) {
+                        Log.d(ApplicationSpecification.name, "Voter : " + voter);
 
-                        Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
+                        if (voter.isAssemblyVoteDone) {
+
+                            Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
+
+                        } else {
+
+                            Intent intent = new Intent(activityContext, VoterVotingActivity.class);
+
+                            intent.putExtra("type", "assembly");
+                            intent.putExtra("typeValue", getIntent().getStringExtra("assembly"));
+                            intent.putExtra("voterId", getIntent().getStringExtra("voterId"));
+
+                            // type = "assembly";
+                            // typeValue = voter.getAssemblyName();
+                            // voterId = voter.getVoterId();
+
+                            // VoterVotingActivity.type = "assembly";
+                            // VoterVotingActivity.typeValue = voter.getAssemblyName();
+                            // VoterVotingActivity.voterId = voter.getVoterId();
+
+                            // Log.d(ApplicationSpecification.name, "type : " + type);
+                            // Log.d(ApplicationSpecification.name, "typeValue : " + typeValue);
+
+                            startActivity(intent);
+                        }
 
                     } else {
 
-                        Intent intent = new Intent(activityContext, VoterVotingActivity.class);
-
-                        intent.putExtra("type", "assembly");
-                        intent.putExtra("typeValue", getIntent().getStringExtra("assembly"));
-                        intent.putExtra("voterId", getIntent().getStringExtra("voterId"));
-
-                        // type = "assembly";
-                        // typeValue = voter.getAssemblyName();
-                        // voterId = voter.getVoterId();
-
-                        // VoterVotingActivity.type = "assembly";
-                        // VoterVotingActivity.typeValue = voter.getAssemblyName();
-                        // VoterVotingActivity.voterId = voter.getVoterId();
-
-                        // Log.d(ApplicationSpecification.name, "type : " + type);
-                        // Log.d(ApplicationSpecification.name, "typeValue : " + typeValue);
-
-                        startActivity(intent);
+                        Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
                     }
-
-                } else {
-
-                    Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
-                }
+                });
             });
         });
 
 
         findViewById(R.id.button_vote_parliment).setOnClickListener(v -> {
 
-            DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference votersNode = rootNode.child("voters");
+            AdminHomeActivity.checkVotingTime(VoterChooseVoteActivity.this, progressBar, getApplicationContext(), () -> {
 
-            votersNode.child(getIntent().getStringExtra("voterId")).get().addOnCompleteListener(task -> {
+                DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference votersNode = rootNode.child("voters");
 
-                if (task.isSuccessful()) {
+                votersNode.child(getIntent().getStringExtra("voterId")).get().addOnCompleteListener(task -> {
 
-                    DataSnapshot data = task.getResult();
+                    if (task.isSuccessful()) {
 
-                    VoterInfoModal voter = data.getValue(VoterInfoModal.class);
+                        DataSnapshot data = task.getResult();
 
-                    Log.d(ApplicationSpecification.name, "Voter : " + voter);
+                        VoterInfoModal voter = data.getValue(VoterInfoModal.class);
 
-                    if (voter.isParlimentVoteDone) {
+                        Log.d(ApplicationSpecification.name, "Voter : " + voter);
 
-                        Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
+                        if (voter.isParlimentVoteDone) {
+
+                            Toast.makeText(getApplicationContext(), "Already over!", Toast.LENGTH_LONG).show();
+
+                        } else {
+
+                            Intent intent = new Intent(activityContext, VoterVotingActivity.class);
+
+                            intent.putExtra("type", "parliment");
+                            intent.putExtra("typeValue", getIntent().getStringExtra("parliment"));
+                            intent.putExtra("voterId", getIntent().getStringExtra("voterId"));
+
+                            startActivity(intent);
+                        }
 
                     } else {
 
-                        Intent intent = new Intent(activityContext, VoterVotingActivity.class);
-
-                        intent.putExtra("type", "parliment");
-                        intent.putExtra("typeValue", getIntent().getStringExtra("parliment"));
-                        intent.putExtra("voterId", getIntent().getStringExtra("voterId"));
-
-                        startActivity(intent);
+                        Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
                     }
-
-                } else {
-
-                    Log.e(ApplicationSpecification.name, "firebase : Error getting data", task.getException());
-                }
+                });
             });
         });
     }

@@ -29,6 +29,8 @@ public class TimeConfigurationActivity extends AppCompatActivity {
     Button buttonStartTime, buttonEndTime;
     boolean isStartTimeSelected = false, isEndTimeSelected = false;
 
+    public static SimpleDateFormat simpleDateTime = new SimpleDateFormat("MMM. dd. yyyy hh:mm a", Locale.US);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -65,8 +67,6 @@ public class TimeConfigurationActivity extends AppCompatActivity {
                 }
             }
         }).execute();
-
-        SimpleDateFormat simpleDateTime = new SimpleDateFormat("MMM. dd. yyyy hh:mm a", Locale.US);
 
         SwitchDateTimeDialogFragment dateTimeDialogFragmentStartTime = SwitchDateTimeDialogFragment.newInstance("Pick Start Time", "OK", "Cancel");
 
