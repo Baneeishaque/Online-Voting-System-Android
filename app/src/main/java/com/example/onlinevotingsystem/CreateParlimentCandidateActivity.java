@@ -23,8 +23,11 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static com.example.onlinevotingsystem.CreateAssemblyCandidateActivity.calculateAge;
 
 public class CreateParlimentCandidateActivity extends AppCompatActivity {
 
@@ -73,7 +76,7 @@ public class CreateParlimentCandidateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_parliment_candidate);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(CreateParlimentCandidateActivity.this, R.color.colorAccent));
-        if (getSupportActionBar() != null) 
+        if (getSupportActionBar() != null)
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
         CandidateForm = findViewById(R.id.CandidateForm);
@@ -218,6 +221,11 @@ public class CreateParlimentCandidateActivity extends AppCompatActivity {
             month = month + 1;
             String date = makeDateString(day, month, year);
             dateButton.setText(date);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day);
+
+            EnterAge.setText(String.valueOf(calculateAge(calendar.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())));
         };
 
         Calendar cal = Calendar.getInstance();

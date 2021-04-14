@@ -25,9 +25,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
+
+import static com.example.onlinevotingsystem.CreateAssemblyCandidateActivity.calculateAge;
 
 public class CreateVoterActivity extends AppCompatActivity {
 
@@ -200,19 +203,19 @@ public class CreateVoterActivity extends AppCompatActivity {
                 String assemblyName = spinner_assembly.getSelectedItem().toString();
                 dob = dateButton.getText().toString();
 
-                VoterInfoModal info = new VoterInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, assemblyName, dob, genderType,false,false);
+                VoterInfoModal info = new VoterInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, assemblyName, dob, genderType, false, false);
 
-                Log.d(ApplicationSpecification.name, "Date : "+dateButton.getText().toString());
+                Log.d(ApplicationSpecification.name, "Date : " + dateButton.getText().toString());
 
                 //TODO : Avoid duplicate voter Ids
                 votersNode.child(voterId).setValue(info);
                 Toast.makeText(CreateVoterActivity.this, "Voter added successfully", Toast.LENGTH_SHORT).show();
-                Log.d(ApplicationSpecification.name, "info : "+info.toString());
+                Log.d(ApplicationSpecification.name, "info : " + info.toString());
 
             } catch (Exception e) {
 
                 Toast.makeText(CreateVoterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                Log.d(ApplicationSpecification.name, "Exception : "+e.toString());
+                Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
             }
         });
     }
@@ -235,6 +238,11 @@ public class CreateVoterActivity extends AppCompatActivity {
             month = month + 1;
             String date = makeDateString(day, month, year);
             dateButton.setText(date);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day);
+
+            EnterAge.setText(String.valueOf(calculateAge(calendar.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())));
         };
 
         Calendar cal = Calendar.getInstance();
