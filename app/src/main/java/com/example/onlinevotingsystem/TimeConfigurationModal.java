@@ -1,7 +1,5 @@
 package com.example.onlinevotingsystem;
 
-import java.util.Date;
-
 public class TimeConfigurationModal {
 
     String startTime, endTime;

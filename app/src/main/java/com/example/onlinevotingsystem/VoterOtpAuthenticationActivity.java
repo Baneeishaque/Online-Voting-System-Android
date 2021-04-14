@@ -26,8 +26,6 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
 
     int otp;
 
-    Context activityContext = this;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

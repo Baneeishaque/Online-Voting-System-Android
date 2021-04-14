@@ -93,8 +93,8 @@ public class CreateVoterActivity extends AppCompatActivity {
         submit = findViewById(R.id.button_submit);
 
         //for dependant spinner
-        spinner_parliament = (Spinner) findViewById(R.id.spinner_parliament);
-        spinner_assembly = (Spinner) findViewById(R.id.spinner_parliment);
+        spinner_parliament = findViewById(R.id.spinner_parliament);
+        spinner_assembly = findViewById(R.id.spinner_parliment);
 
         arrayList_parliament = new ArrayList<>();
         arrayList_parliament.add("Malappuram");
@@ -158,10 +158,10 @@ public class CreateVoterActivity extends AppCompatActivity {
         dateButton.setText(getTodayDate());
 
         //for gender
-        Male = (RadioButton) findViewById(R.id.male);
-        Female = (RadioButton) findViewById(R.id.female);
-        Other = (RadioButton) findViewById(R.id.other);
-        radioGroup = (RadioGroup) findViewById(R.id.RadioGroup);
+        Male = findViewById(R.id.male);
+        Female = findViewById(R.id.female);
+        Other = findViewById(R.id.other);
+        radioGroup = findViewById(R.id.RadioGroup);
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
 

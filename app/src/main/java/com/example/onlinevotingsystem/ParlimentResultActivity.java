@@ -55,7 +55,7 @@ public class ParlimentResultActivity extends AppCompatActivity {
 
         String parliment = getIntent().getStringExtra("parliment");
         TextView textViewTitle = findViewById(R.id.text_view_title);
-        textViewTitle.setText("Results : Parliment - " + parliment);
+        textViewTitle.setText("Results : Parliament - " + parliment);
 
 //        DatabaseReference rootNode = FirebaseDatabase.getInstance().getReference();
 //        DatabaseReference parlimentVotesNode = rootNode.child("parlimentVotes");

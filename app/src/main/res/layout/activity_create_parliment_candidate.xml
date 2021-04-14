@@ -15,7 +15,7 @@
             android:id="@+id/CandidateForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Candidate Form : Assembly"
+            android:text="Candidate Form : Parliament"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="24sp"
