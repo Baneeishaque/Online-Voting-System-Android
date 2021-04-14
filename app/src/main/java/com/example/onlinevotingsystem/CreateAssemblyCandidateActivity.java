@@ -23,6 +23,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -76,7 +79,7 @@ public class CreateAssemblyCandidateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_assembly_candidate);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(CreateAssemblyCandidateActivity.this, R.color.colorAccent));
-        if (getSupportActionBar() != null) 
+        if (getSupportActionBar() != null)
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
         CandidateForm = findViewById(R.id.CandidateForm);
@@ -253,6 +256,18 @@ public class CreateAssemblyCandidateActivity extends AppCompatActivity {
         });
     }
 
+    public static int calculateAge(LocalDate birthDate) {
+
+        if (birthDate != null) {
+
+            return Period.between(birthDate, LocalDate.now()).getYears();
+
+        } else {
+
+            return 0;
+        }
+    }
+
     //for dob
     private String getTodayDate() {
 
@@ -273,6 +288,11 @@ public class CreateAssemblyCandidateActivity extends AppCompatActivity {
             month = month + 1;
             String date = makeDateString(day, month, year);
             dateButton.setText(date);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day);
+
+            EnterAge.setText(String.valueOf(calculateAge(calendar.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())));
         };
 
         Calendar cal = Calendar.getInstance();
