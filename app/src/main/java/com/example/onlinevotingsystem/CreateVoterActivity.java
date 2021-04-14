@@ -41,7 +41,7 @@ public class CreateVoterActivity extends AppCompatActivity {
 
     MaterialButton submit;
 
-    String genderType;
+    String genderType = "";
 
     String dob;
 
@@ -188,34 +188,76 @@ public class CreateVoterActivity extends AppCompatActivity {
         //Save data in firebase on button click
         submit.setOnClickListener(v -> {
 
-            try {
-                rootNode = FirebaseDatabase.getInstance();
-                votersNode = rootNode.getReference("voters");
+            //Get all the values
+            String name = EnterName.getText().toString();
+            String address = EnterAddress.getText().toString();
+            String age = EnterAge.getText().toString();
+            String mobileNumber = EnterMobile.getText().toString();
+            String voterId = EnterVoterId.getText().toString();
+            String aadharNumber = EnterAadhar.getText().toString();
 
-                //Get all the values
-                String name = EnterName.getText().toString();
-                String address = EnterAddress.getText().toString();
-                String age = EnterAge.getText().toString();
-                String mobileNumber = EnterMobile.getText().toString();
-                String voterId = EnterVoterId.getText().toString();
-                String aadharNumber = EnterAadhar.getText().toString();
-                String parlimentName = spinner_parliament.getSelectedItem().toString();
-                String assemblyName = spinner_assembly.getSelectedItem().toString();
-                dob = dateButton.getText().toString();
+            if (name.isEmpty()) {
 
-                VoterInfoModal info = new VoterInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, assemblyName, dob, genderType, false, false);
+                Toast.makeText(getApplicationContext(), "Please Enter Name..", Toast.LENGTH_LONG).show();
+                EnterName.setError("Please Enter Name..");
+                EnterName.requestFocus();
 
-                Log.d(ApplicationSpecification.name, "Date : " + dateButton.getText().toString());
+            } else if (address.isEmpty()) {
 
-                //TODO : Avoid duplicate voter Ids
-                votersNode.child(voterId).setValue(info);
-                Toast.makeText(CreateVoterActivity.this, "Voter added successfully", Toast.LENGTH_SHORT).show();
-                Log.d(ApplicationSpecification.name, "info : " + info.toString());
+                Toast.makeText(getApplicationContext(), "Please Enter Address..", Toast.LENGTH_LONG).show();
+                EnterAddress.setError("Please Enter Address..");
+                EnterAddress.requestFocus();
 
-            } catch (Exception e) {
+            } else if (age.isEmpty() || Integer.parseInt(age) < 18) {
 
-                Toast.makeText(CreateVoterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
+                Toast.makeText(getApplicationContext(), "Invalid Age..", Toast.LENGTH_LONG).show();
+
+            } else if (genderType.isEmpty()) {
+
+                Toast.makeText(getApplicationContext(), "Please Select Gender..", Toast.LENGTH_LONG).show();
+
+            } else if (mobileNumber.length() != 10 || (!mobileNumber.matches("[0-9]+"))) {
+
+                Toast.makeText(getApplicationContext(), "Invalid Mobile Number..", Toast.LENGTH_LONG).show();
+                EnterMobile.setError("Invalid Mobile Number..");
+                EnterMobile.requestFocus();
+
+            } else if (voterId.isEmpty()) {
+
+                Toast.makeText(getApplicationContext(), "Please Enter VoterID..", Toast.LENGTH_LONG).show();
+                EnterVoterId.setError("Please Enter VoterID..");
+                EnterVoterId.requestFocus();
+
+            } else if (aadharNumber.length() != 12 || (!aadharNumber.matches("[0-9]+"))) {
+
+                Toast.makeText(getApplicationContext(), "Invalid Aadhar Number..", Toast.LENGTH_LONG).show();
+                EnterAadhar.setError("Invalid Aadhar Number..");
+                EnterAadhar.requestFocus();
+
+            } else {
+
+                try {
+                    rootNode = FirebaseDatabase.getInstance();
+                    votersNode = rootNode.getReference("voters");
+
+                    String parlimentName = spinner_parliament.getSelectedItem().toString();
+                    String assemblyName = spinner_assembly.getSelectedItem().toString();
+                    dob = dateButton.getText().toString();
+
+                    VoterInfoModal info = new VoterInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, assemblyName, dob, genderType, false, false);
+
+                    Log.d(ApplicationSpecification.name, "Date : " + dateButton.getText().toString());
+
+                    //TODO : Avoid duplicate voter Ids
+                    votersNode.child(voterId).setValue(info);
+                    Toast.makeText(CreateVoterActivity.this, "Voter added successfully", Toast.LENGTH_SHORT).show();
+                    Log.d(ApplicationSpecification.name, "info : " + info.toString());
+
+                } catch (Exception e) {
+
+                    Toast.makeText(CreateVoterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
+                }
             }
         });
     }

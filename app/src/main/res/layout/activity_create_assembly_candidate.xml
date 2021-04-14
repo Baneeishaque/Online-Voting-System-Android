@@ -238,6 +238,7 @@
         <EditText
             android:id="@+id/EnterMobile"
             android:layout_width="0dp"
+            android:maxLength="10"
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:background="@drawable/custom_edittext"
@@ -304,6 +305,7 @@
         <EditText
             android:id="@+id/EnterAadhar"
             android:layout_width="0dp"
+            android:maxLength="12"
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:background="@drawable/custom_edittext"

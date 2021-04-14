@@ -137,7 +137,7 @@ public class CreateParlimentCandidateActivity extends AppCompatActivity {
         });
 
         //for gender
-        genderType = "Male";
+        genderType = "";
         Male = findViewById(R.id.male);
         Female = findViewById(R.id.female);
         Other = findViewById(R.id.other);
@@ -165,38 +165,80 @@ public class CreateParlimentCandidateActivity extends AppCompatActivity {
         //Save data in firebase on button click
         submit.setOnClickListener(v -> {
 
-            try {
-                rootNode = FirebaseDatabase.getInstance();
-                parlimentCandidatesNode = rootNode.getReference("parlimentCandidates");
+            //Get all the values
+            String name = EnterName.getText().toString();
+            String address = EnterAddress.getText().toString();
+            String age = EnterAge.getText().toString();
+            String mobileNumber = EnterMobile.getText().toString();
+            String voterId = EnterVoterId.getText().toString();
+            String aadharNumber = EnterAadhar.getText().toString();
 
-                //Get all the values
-                String name = EnterName.getText().toString();
-                String address = EnterAddress.getText().toString();
-                String age = EnterAge.getText().toString();
-                String mobileNumber = EnterMobile.getText().toString();
-                String voterId = EnterVoterId.getText().toString();
-                String aadharNumber = EnterAadhar.getText().toString();
-                PartyModal party = (PartyModal) spinnerParties.getSelectedItem();
-                String partyName = party.getPartyName();
-                String parlimentName = spinner_parliament.getSelectedItem().toString();
-                String assemblyName = "NA";
-                dob = dateButton.getText().toString();
+            if (name.isEmpty()) {
 
-                CandidateInfoModal info = new CandidateInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, partyName, assemblyName, dob, genderType);
+                Toast.makeText(getApplicationContext(), "Please Enter Name..", Toast.LENGTH_LONG).show();
+                EnterName.setError("Please Enter Name..");
+                EnterName.requestFocus();
 
-                Log.d(ApplicationSpecification.name, "DATE : " + dateButton.getText().toString());
+            } else if (address.isEmpty()) {
 
-                //TODO : Avoid duplicate voter Ids - check for voterId existence
-                //TODO : Check returns from firebase db
-                parlimentCandidatesNode.child(parlimentName).child(voterId).setValue(info);
-                //TODO : Reset from after submission
-                Toast.makeText(CreateParlimentCandidateActivity.this, "Candidate added successfully", Toast.LENGTH_SHORT).show();
-                Log.d(ApplicationSpecification.name, "info : " + info.toString());
+                Toast.makeText(getApplicationContext(), "Please Enter Address..", Toast.LENGTH_LONG).show();
+                EnterAddress.setError("Please Enter Address..");
+                EnterAddress.requestFocus();
 
-            } catch (Exception e) {
+            } else if (age.isEmpty() || Integer.parseInt(age) < 18) {
 
-                Toast.makeText(CreateParlimentCandidateActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
+                Toast.makeText(getApplicationContext(), "Invalid Age..", Toast.LENGTH_LONG).show();
+
+            } else if (genderType.isEmpty()) {
+
+                Toast.makeText(getApplicationContext(), "Please Select Gender..", Toast.LENGTH_LONG).show();
+
+            } else if (mobileNumber.length() != 10 || (!mobileNumber.matches("[0-9]+"))) {
+
+                Toast.makeText(getApplicationContext(), "Invalid Mobile Number..", Toast.LENGTH_LONG).show();
+                EnterMobile.setError("Invalid Mobile Number..");
+                EnterMobile.requestFocus();
+
+            } else if (voterId.isEmpty()) {
+
+                Toast.makeText(getApplicationContext(), "Please Enter VoterID..", Toast.LENGTH_LONG).show();
+                EnterVoterId.setError("Please Enter VoterID..");
+                EnterVoterId.requestFocus();
+
+            } else if (aadharNumber.length() != 12 || (!aadharNumber.matches("[0-9]+"))) {
+
+                Toast.makeText(getApplicationContext(), "Invalid Aadhar Number..", Toast.LENGTH_LONG).show();
+                EnterAadhar.setError("Invalid Aadhar Number..");
+                EnterAadhar.requestFocus();
+
+            } else {
+
+                try {
+                    rootNode = FirebaseDatabase.getInstance();
+                    parlimentCandidatesNode = rootNode.getReference("parlimentCandidates");
+
+                    PartyModal party = (PartyModal) spinnerParties.getSelectedItem();
+                    String partyName = party.getPartyName();
+                    String parlimentName = spinner_parliament.getSelectedItem().toString();
+                    String assemblyName = "NA";
+                    dob = dateButton.getText().toString();
+
+                    CandidateInfoModal info = new CandidateInfoModal(name, address, age, mobileNumber, voterId, aadharNumber, parlimentName, partyName, assemblyName, dob, genderType);
+
+                    Log.d(ApplicationSpecification.name, "DATE : " + dateButton.getText().toString());
+
+                    //TODO : Avoid duplicate voter Ids - check for voterId existence
+                    //TODO : Check returns from firebase db
+                    parlimentCandidatesNode.child(parlimentName).child(voterId).setValue(info);
+                    //TODO : Reset from after submission
+                    Toast.makeText(CreateParlimentCandidateActivity.this, "Candidate added successfully", Toast.LENGTH_SHORT).show();
+                    Log.d(ApplicationSpecification.name, "info : " + info.toString());
+
+                } catch (Exception e) {
+
+                    Toast.makeText(CreateParlimentCandidateActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
+                }
             }
         });
     }
