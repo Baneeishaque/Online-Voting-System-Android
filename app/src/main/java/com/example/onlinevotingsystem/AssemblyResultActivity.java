@@ -34,7 +34,6 @@ public class AssemblyResultActivity extends AppCompatActivity {
 
     public ProgressBar progressBar;
     public RecyclerView recyclerView;
-    private ConstraintLayout constraintLayout;
 
     ArrayList<ResultModal> results = new ArrayList<>();
     private final ResultsRecyclerViewAdaptor resultsRecyclerViewAdaptor = new ResultsRecyclerViewAdaptor(results);

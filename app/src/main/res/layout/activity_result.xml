@@ -7,7 +7,6 @@
     tools:context=".ParlimentResultActivity">
 
     <ProgressBar
-
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"

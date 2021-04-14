@@ -38,7 +38,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         findViewById(R.id.button_create_parliment_candidate).setOnClickListener(v -> {
 
-             startActivity(new Intent(AdminHomeActivity.this, CreateParlimentCandidateActivity.class));
+            startActivity(new Intent(AdminHomeActivity.this, CreateParlimentCandidateActivity.class));
         });
 
         findViewById(R.id.button_create_voter).setOnClickListener(v -> {
@@ -50,10 +50,15 @@ public class AdminHomeActivity extends AppCompatActivity {
 
             startActivity(new Intent(AdminHomeActivity.this, ChooseAssemblyResultsActivity.class));
         });
-        
+
         findViewById(R.id.button_view_parliment_results).setOnClickListener(v -> {
 
-             startActivity(new Intent(AdminHomeActivity.this, ChooseParlimentResultsActivity.class));
+            startActivity(new Intent(AdminHomeActivity.this, ChooseParlimentResultsActivity.class));
+        });
+
+        findViewById(R.id.button_time_configuration).setOnClickListener(v -> {
+
+            startActivity(new Intent(AdminHomeActivity.this, TimeConfigurationActivity.class));
         });
     }
 }

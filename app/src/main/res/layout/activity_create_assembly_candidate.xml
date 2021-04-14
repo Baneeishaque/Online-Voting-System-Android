@@ -64,7 +64,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Address                  :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -84,7 +83,6 @@
             android:inputType="textMultiLine"
             android:minLines="2"
             android:padding="@dimen/_8dp"
-
             android:textCursorDrawable="@color/black"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/Address"
@@ -99,7 +97,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Date of Birth          :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -136,7 +133,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Age                         :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -156,7 +152,6 @@
             android:ems="10"
             android:inputType="number"
             android:padding="@dimen/_8dp"
-
             android:textCursorDrawable="@color/black"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/Age"
@@ -171,7 +166,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Gender                   :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -226,7 +220,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Mobile Number     :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -246,7 +239,6 @@
             android:ems="10"
             android:inputType="number"
             android:padding="@dimen/_8dp"
-
             android:textCursorDrawable="@color/black"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/MobileNumber"
@@ -261,7 +253,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Voter ID                 :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -281,7 +272,6 @@
             android:ems="10"
             android:inputType="text"
             android:padding="@dimen/_8dp"
-
             android:textCursorDrawable="@color/black"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/VoterId"
@@ -296,7 +286,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Aadhar Number   :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -316,7 +305,6 @@
             android:ems="10"
             android:inputType="number"
             android:padding="@dimen/_8dp"
-
             android:textCursorDrawable="@color/black"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/AadharNumber"
@@ -331,7 +319,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Party Name          :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -361,7 +348,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Parliament Constituencies    :"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -391,7 +377,6 @@
             android:layout_height="64dp"
             android:layout_marginTop="@dimen/_16dp"
             android:gravity="center_vertical"
-
             android:text="Legislative Assembly Constituencies    :"
             android:textColor="#000000"
             android:textSize="18sp"

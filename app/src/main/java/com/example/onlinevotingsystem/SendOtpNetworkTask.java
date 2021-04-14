@@ -143,4 +143,18 @@ public class SendOtpNetworkTask extends AsyncTask<Void, Void, String[]> {
             }
         });
     }
+
+    public static void showProgress(final boolean show, Context context, final View progressBarView) {
+
+        int shortAnimTime = context.getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        progressBarView.setVisibility(show ? View.VISIBLE : View.GONE);
+        progressBarView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                progressBarView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
+    }
 }
