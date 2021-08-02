@@ -1,9 +1,11 @@
 package com.example.onlinevotingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
@@ -26,6 +28,9 @@ public class VoterChooseVoteActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voter_choose_vote);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
+        if (getSupportActionBar() != null) getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
 
         progressBar = findViewById(R.id.progressBar);
 

@@ -1,12 +1,14 @@
 package com.example.onlinevotingsystem;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,11 @@ public class ChooseParlimentResultsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_parliment);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
+        if (getSupportActionBar() != null) getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+
+
 
         arrayList_parliament = new ArrayList<>();
         arrayList_parliament.add("Malappuram");

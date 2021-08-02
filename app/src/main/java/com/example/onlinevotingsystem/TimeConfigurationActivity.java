@@ -1,28 +1,27 @@
 package com.example.onlinevotingsystem;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment;
-
-import org.apache.commons.lang3.time.DateUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class TimeConfigurationActivity extends AppCompatActivity {
+
+    // TODO : Fix layout problems
+    Context activityContext = this;
 
     public ProgressBar progressBar;
 
@@ -36,6 +35,11 @@ public class TimeConfigurationActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_configuration);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
+        if (getSupportActionBar() != null) getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+
+
 
         progressBar = findViewById(R.id.progressBar);
 

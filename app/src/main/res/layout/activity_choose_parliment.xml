@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/text_view_parliment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="193dp"
+        android:layout_height="74dp"
         android:layout_margin="@dimen/_16dp"
+        android:layout_marginStart="4dp"
         android:padding="10dp"
         android:text="@string/parliament_constituencies"
         android:textColor="#000000"
@@ -19,6 +20,7 @@
         app:layout_constraintBottom_toTopOf="@id/button_submit"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/spinner_parliment"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.5" />

@@ -1,9 +1,11 @@
 package com.example.onlinevotingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -23,6 +25,11 @@ public class ChooseAssemblyResultsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_assembly);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
+        if (getSupportActionBar() != null) getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+
+
 
         arrayList_malappuram = new ArrayList<>();
         arrayList_malappuram.add("Malappuram");

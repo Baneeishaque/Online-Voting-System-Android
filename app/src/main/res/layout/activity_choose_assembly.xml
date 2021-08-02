@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_16dp"
         android:padding="10dp"
-        android:text="@string/legislative_assembly_constituencies"
+        android:text="Legislative Assembly Constituencies   :"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -21,7 +21,8 @@
         app:layout_constraintRight_toLeftOf="@id/spinner_parliment"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.5" />
+        app:layout_constraintWidth_percent="0.5"
+        tools:ignore="NotSibling" />
 
     <Spinner
         android:id="@+id/spinner_assembly"
