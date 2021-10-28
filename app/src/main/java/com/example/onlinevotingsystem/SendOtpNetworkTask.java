@@ -55,11 +55,11 @@ public class SendOtpNetworkTask extends AsyncTask<Void, Void, String[]> {
             defaultHttpClient = new DefaultHttpClient();
             httpPost = new HttpPost("https://www.fast2sms.com/dev/bulkV2");
 
-            httpPost.setHeader("authorization", "Fsa8UfwRSjtz5b6mdQ3rNP4qDW2onTLXCKeAi0cVZ7uEvYlIBH5y9ugFDUcp8NHlX42qK1VidZR7OBYx");
+            httpPost.setHeader("authorization", "wE1asYR4IFgh38NmMeciGl27rVuLHCJQbpOtZWyfPBAznTqokXkXyY0uTtAanwzodiOL2JHhGcr8PlFC");
             httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
             ArrayList<NameValuePair> nameValuePairs = new ArrayList<>(5);
-            nameValuePairs.add(new BasicNameValuePair("authorization", "Fsa8UfwRSjtz5b6mdQ3rNP4qDW2onTLXCKeAi0cVZ7uEvYlIBH5y9ugFDUcp8NHlX42qK1VidZR7OBYx"));
+            nameValuePairs.add(new BasicNameValuePair("authorization", "wE1asYR4IFgh38NmMeciGl27rVuLHCJQbpOtZWyfPBAznTqokXkXyY0uTtAanwzodiOL2JHhGcr8PlFC"));
             nameValuePairs.add(new BasicNameValuePair("sender_id", "TXTIND"));
             nameValuePairs.add(new BasicNameValuePair("message", "Online Voting System Otp : " + message));
             nameValuePairs.add(new BasicNameValuePair("route", "v3"));

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "303007227345",
-    "project_id": "online-voting-system-a5b27",
-    "storage_bucket": "online-voting-system-a5b27.appspot.com"
+    "project_number": "497491391201",
+    "project_id": "onlinevotingsystem-8225e",
+    "storage_bucket": "onlinevotingsystem-8225e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:303007227345:android:fb3e2697dad156cfad94f0",
+        "mobilesdk_app_id": "1:497491391201:android:3cbb5cc4f845e0f8b97da0",
         "android_client_info": {
           "package_name": "com.example.onlinevotingsystem"
         }
       },
       "oauth_client": [
         {
-          "client_id": "303007227345-e61f6regqavefl4c8ao2na51tst5q3b1.apps.googleusercontent.com",
+          "client_id": "497491391201-3nnk7op2r11l1qasenvnu4s4l2uvfigj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCBi5CXUJVWnXWsdroToVb3jD4M0wUHoZg"
+          "current_key": "AIzaSyCfomrFejQGJoyqtnT0ihLx0Zw9be0CZmI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "303007227345-e61f6regqavefl4c8ao2na51tst5q3b1.apps.googleusercontent.com",
+              "client_id": "497491391201-3nnk7op2r11l1qasenvnu4s4l2uvfigj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,4 +1,4 @@
-package com.example.onlinevotingsystem;
+ package com.example.onlinevotingsystem;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
