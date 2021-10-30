@@ -10,13 +10,16 @@ android {
     defaultConfig {
 
         applicationId "com.example.onlinevotingsystem"
-        minSdkVersion 23
+        minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         useLibrary  'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+		
+		// Enabling multidex support.
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -36,6 +39,8 @@ android {
 
 dependencies {
 
+	implementation 'androidx.multidex:multidex:2.0.1'
+	
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
