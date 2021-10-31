@@ -1,25 +1,17 @@
  package com.example.onlinevotingsystem;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.content.Context;
+ import android.content.Context;
+ import android.content.Intent;
+ import android.graphics.drawable.ColorDrawable;
+ import android.os.Bundle;
+ import android.widget.EditText;
+ import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+ import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.FirebaseAuth;
+ import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Objects;
-
-public class AdminAuthenticationActivity extends AppCompatActivity {
+ public class AdminAuthenticationActivity extends AppCompatActivity {
 
     Context activityContext = this;
     AppCompatActivity currentActivity = this;
@@ -79,9 +71,6 @@ public class AdminAuthenticationActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.text_view_sign_in).setOnClickListener(v -> {
-
-            startActivity(new Intent(activityContext, AdminLoginActivity.class));
-        });
+        findViewById(R.id.text_view_sign_in).setOnClickListener(v -> startActivity(new Intent(activityContext, AdminLoginActivity.class)));
     }
 }

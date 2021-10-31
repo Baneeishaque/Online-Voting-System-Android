@@ -1,10 +1,5 @@
 package com.example.onlinevotingsystem;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -14,9 +9,13 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -103,7 +102,7 @@ public class VoterVotingActivity extends AppCompatActivity {
                     try {
 
                         JSONObject assemblyCandidatesJsonObject = new JSONObject(response);
-                        Log.d(ApplicationSpecification.name, "Assembly " + voteTypeValue + " Candidates JSON Object : " + assemblyCandidatesJsonObject.toString());
+                        Log.d(ApplicationSpecification.name, "Assembly " + voteTypeValue + " Candidates JSON Object : " + assemblyCandidatesJsonObject);
 
                         Iterator<?> keys = assemblyCandidatesJsonObject.keys();
                         while (keys.hasNext()) {
@@ -111,7 +110,7 @@ public class VoterVotingActivity extends AppCompatActivity {
                             if (assemblyCandidatesJsonObject.get(key) instanceof JSONObject) {
 
                                 JSONObject assemblyCandidate = new JSONObject(assemblyCandidatesJsonObject.get(key).toString());
-                                Log.d(ApplicationSpecification.name, "Assembly Candidate : " + assemblyCandidate.toString());
+                                Log.d(ApplicationSpecification.name, "Assembly Candidate : " + assemblyCandidate);
                                 candidates.add(new CandidateModal(getPartySymbol(assemblyCandidate.getString("partyName"), activityContext), assemblyCandidate.getString("name"), assemblyCandidate.getString("assemblyName"), assemblyCandidate.getString("parliamentName"), assemblyCandidate.getString("partyName")));
                             }
                         }
@@ -138,7 +137,7 @@ public class VoterVotingActivity extends AppCompatActivity {
                     try {
 
                         JSONObject parlimentCandidatesJsonObject = new JSONObject(response);
-                        Log.d(ApplicationSpecification.name, "Parliment " + voteTypeValue + " Candidates JSON Object : " + parlimentCandidatesJsonObject.toString());
+                        Log.d(ApplicationSpecification.name, "Parliment " + voteTypeValue + " Candidates JSON Object : " + parlimentCandidatesJsonObject);
 
                         Iterator<?> keys = parlimentCandidatesJsonObject.keys();
                         while (keys.hasNext()) {
@@ -146,7 +145,7 @@ public class VoterVotingActivity extends AppCompatActivity {
                             if (parlimentCandidatesJsonObject.get(key) instanceof JSONObject) {
 
                                 JSONObject parlimentCandidate = new JSONObject(parlimentCandidatesJsonObject.get(key).toString());
-                                Log.d(ApplicationSpecification.name, "Parliment Candidate : " + parlimentCandidate.toString());
+                                Log.d(ApplicationSpecification.name, "Parliment Candidate : " + parlimentCandidate);
                                 candidates.add(new CandidateModal(getPartySymbol(parlimentCandidate.getString("partyName"), activityContext), parlimentCandidate.getString("name"), parlimentCandidate.getString("assemblyName"), parlimentCandidate.getString("parliamentName"), parlimentCandidate.getString("partyName")));
                             }
                         }

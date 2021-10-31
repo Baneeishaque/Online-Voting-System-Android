@@ -1,16 +1,11 @@
 package com.example.onlinevotingsystem;
 
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import java.util.Objects;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -35,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
 
-                    Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
+                    Log.d(ApplicationSpecification.name, "Exception : " + e);
 
                 } finally {
 

@@ -2,7 +2,6 @@ package com.example.onlinevotingsystem;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,7 +97,7 @@ public class VoterAuthenticationActivity extends AppCompatActivity {
 //                            editor.putString("voterJSONObject", voterJsonObject.toString());
 //                            editor.apply();
 
-                            Log.d(ApplicationSpecification.name,"Voter JSON Object : "+voterJsonObject.toString());
+                            Log.d(ApplicationSpecification.name,"Voter JSON Object : "+ voterJsonObject);
 
                             String voterMobile = voterJsonObject.getString("mobileNumber");
                             if (voterMobile.equals(editTextPhoneNumber.getText().toString().trim())) {

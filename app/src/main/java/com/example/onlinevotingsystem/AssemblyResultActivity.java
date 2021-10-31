@@ -1,7 +1,6 @@
 package com.example.onlinevotingsystem;
 
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,16 +9,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,7 +82,7 @@ public class AssemblyResultActivity extends AppCompatActivity {
                 try {
 
                     JSONObject candidatesJsonObject = new JSONObject(response);
-                    Log.d(ApplicationSpecification.name, "Assembly " + assembly + " Votes JSON Object : " + candidatesJsonObject.toString());
+                    Log.d(ApplicationSpecification.name, "Assembly " + assembly + " Votes JSON Object : " + candidatesJsonObject);
 
                     Iterator<?> keys = candidatesJsonObject.keys();
                     while (keys.hasNext()) {
@@ -98,7 +90,7 @@ public class AssemblyResultActivity extends AppCompatActivity {
                         if (candidatesJsonObject.get(candidate) instanceof JSONObject) {
 
                             JSONObject candidateVotes = new JSONObject(candidatesJsonObject.get(candidate).toString());
-                            Log.d(ApplicationSpecification.name, "Assembly Candidate - " + candidate + " Votes : " + candidateVotes.toString());
+                            Log.d(ApplicationSpecification.name, "Assembly Candidate - " + candidate + " Votes : " + candidateVotes);
                             results.add(new ResultModal(getPartySymbol(getFirstItemValueFromJsonObject(candidateVotes), AssemblyResultActivity.this), candidate, candidateVotes.length()));
                         }
                     }

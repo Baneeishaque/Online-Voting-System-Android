@@ -7,13 +7,16 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -60,7 +63,7 @@ public class TimeConfigurationActivity extends AppCompatActivity {
                 try {
 
                     JSONObject timeConfigurationJsonObject = new JSONObject(response);
-                    Log.d(ApplicationSpecification.name, "Time Configuration JSON Object : " + timeConfigurationJsonObject.toString());
+                    Log.d(ApplicationSpecification.name, "Time Configuration JSON Object : " + timeConfigurationJsonObject);
 
                     buttonStartTime.setText(timeConfigurationJsonObject.getString("startTime"));
                     buttonEndTime.setText(timeConfigurationJsonObject.getString("endTime"));
@@ -110,10 +113,7 @@ public class TimeConfigurationActivity extends AppCompatActivity {
         });
 
 
-        buttonStartTime.setOnClickListener(v -> {
-
-            dateTimeDialogFragmentStartTime.show(getSupportFragmentManager(), "DateTimePickerStartTime");
-        });
+        buttonStartTime.setOnClickListener(v -> dateTimeDialogFragmentStartTime.show(getSupportFragmentManager(), "DateTimePickerStartTime"));
 
         buttonEndTime.setOnClickListener(v -> {
 

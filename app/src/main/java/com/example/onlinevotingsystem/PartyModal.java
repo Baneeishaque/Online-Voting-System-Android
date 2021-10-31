@@ -2,8 +2,8 @@ package com.example.onlinevotingsystem;
 
 public class PartyModal {
 
-    private String mPartyName;
-    private int mPartyImage;
+    private final String mPartyName;
+    private final int mPartyImage;
 
     public PartyModal(String partyName, int partyImage) {
 

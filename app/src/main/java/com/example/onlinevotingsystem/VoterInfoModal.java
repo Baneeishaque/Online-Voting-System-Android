@@ -1,5 +1,7 @@
 package com.example.onlinevotingsystem;
 
+import androidx.annotation.NonNull;
+
 public class VoterInfoModal {
 
     // TODO : include isAssemblyVoteDone & isParlimentVoteDone
@@ -122,6 +124,7 @@ public class VoterInfoModal {
         this.assemblyName = assemblyName;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "VoterInfoModal{" +

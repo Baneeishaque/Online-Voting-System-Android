@@ -15,10 +15,10 @@ android {
         versionCode 1
         versionName "1.0"
 
-        useLibrary  'org.apache.http.legacy'
+        useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-		
-		// Enabling multidex support.
+
+        // Enabling multidex support.
         multiDexEnabled true
     }
 

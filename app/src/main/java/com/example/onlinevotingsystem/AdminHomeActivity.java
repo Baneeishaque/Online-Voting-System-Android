@@ -9,7 +9,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -46,35 +45,17 @@ public class AdminHomeActivity extends AppCompatActivity {
             startActivity(new Intent(AdminHomeActivity.this, AdminAuthenticationActivity.class));
         });
 
-        findViewById(R.id.button_create_assembly_candidate).setOnClickListener(v -> {
+        findViewById(R.id.button_create_assembly_candidate).setOnClickListener(v -> startActivity(new Intent(AdminHomeActivity.this, CreateAssemblyCandidateActivity.class)));
 
-            startActivity(new Intent(AdminHomeActivity.this, CreateAssemblyCandidateActivity.class));
-        });
+        findViewById(R.id.button_create_parliment_candidate).setOnClickListener(v -> startActivity(new Intent(AdminHomeActivity.this, CreateParlimentCandidateActivity.class)));
 
-        findViewById(R.id.button_create_parliment_candidate).setOnClickListener(v -> {
+        findViewById(R.id.button_create_voter).setOnClickListener(v -> startActivity(new Intent(AdminHomeActivity.this, CreateVoterActivity.class)));
 
-            startActivity(new Intent(AdminHomeActivity.this, CreateParlimentCandidateActivity.class));
-        });
+        findViewById(R.id.button_view_assembly_results).setOnClickListener(v -> checkResultTime(this, progressBar, getApplicationContext(), () -> startActivity(new Intent(AdminHomeActivity.this, ChooseAssemblyResultsActivity.class))));
 
-        findViewById(R.id.button_create_voter).setOnClickListener(v -> {
+        findViewById(R.id.button_view_parliment_results).setOnClickListener(v -> checkResultTime(this, progressBar, getApplicationContext(), () -> startActivity(new Intent(AdminHomeActivity.this, ChooseParlimentResultsActivity.class))));
 
-            startActivity(new Intent(AdminHomeActivity.this, CreateVoterActivity.class));
-        });
-
-        findViewById(R.id.button_view_assembly_results).setOnClickListener(v -> {
-
-            checkResultTime(this, progressBar, getApplicationContext(), () -> startActivity(new Intent(AdminHomeActivity.this, ChooseAssemblyResultsActivity.class)));
-        });
-
-        findViewById(R.id.button_view_parliment_results).setOnClickListener(v -> {
-
-            checkResultTime(this, progressBar, getApplicationContext(), () -> startActivity(new Intent(AdminHomeActivity.this, ChooseParlimentResultsActivity.class)));
-        });
-
-        findViewById(R.id.button_time_configuration).setOnClickListener(v -> {
-
-            startActivity(new Intent(AdminHomeActivity.this, TimeConfigurationActivity.class));
-        });
+        findViewById(R.id.button_time_configuration).setOnClickListener(v -> startActivity(new Intent(AdminHomeActivity.this, TimeConfigurationActivity.class)));
     }
 
     public static void checkVotingTime(Context activityContext, ProgressBar progressBar, Context applicationContext, FurtherActions furtherActions) {
@@ -94,7 +75,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                 try {
 
                     JSONObject timeConfigurationJsonObject = new JSONObject(response);
-                    Log.d(ApplicationSpecification.name, "Time Configuration JSON Object : " + timeConfigurationJsonObject.toString());
+                    Log.d(ApplicationSpecification.name, "Time Configuration JSON Object : " + timeConfigurationJsonObject);
 
                     Date currentDateTime = Calendar.getInstance().getTime();
                     if ((currentDateTime.compareTo(TimeConfigurationActivity.simpleDateTime.parse(timeConfigurationJsonObject.getString("startTime"))) > 0) && (currentDateTime.compareTo(TimeConfigurationActivity.simpleDateTime.parse(timeConfigurationJsonObject.getString("endTime"))) < 0)) {
@@ -131,7 +112,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                 try {
 
                     JSONObject timeConfigurationJsonObject = new JSONObject(response);
-                    Log.d(ApplicationSpecification.name, "Time Configuration JSON Object : " + timeConfigurationJsonObject.toString());
+                    Log.d(ApplicationSpecification.name, "Time Configuration JSON Object : " + timeConfigurationJsonObject);
 
                     Date currentDateTime = Calendar.getInstance().getTime();
                     if (currentDateTime.compareTo(TimeConfigurationActivity.simpleDateTime.parse(timeConfigurationJsonObject.getString("endTime"))) > 0) {
