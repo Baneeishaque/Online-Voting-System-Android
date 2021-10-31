@@ -22,7 +22,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -230,12 +229,12 @@ public class CreateParlimentCandidateActivity extends AppCompatActivity {
                     parlimentCandidatesNode.child(parlimentName).child(voterId).setValue(info);
                     //TODO : Reset from after submission
                     Toast.makeText(CreateParlimentCandidateActivity.this, "Candidate added successfully", Toast.LENGTH_SHORT).show();
-                    Log.d(ApplicationSpecification.name, "info : " + info.toString());
+                    Log.d(ApplicationSpecification.name, "info : " + info);
 
                 } catch (Exception e) {
 
                     Toast.makeText(CreateParlimentCandidateActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                    Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
+                    Log.d(ApplicationSpecification.name, "Exception : " + e);
                 }
             }
         });
@@ -265,7 +264,7 @@ public class CreateParlimentCandidateActivity extends AppCompatActivity {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, day);
 
-            EnterAge.setText(String.valueOf(calculateAge(calendar.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())));
+            EnterAge.setText(String.valueOf(calculateAge(calendar.getTime())));
         };
 
         Calendar cal = Calendar.getInstance();

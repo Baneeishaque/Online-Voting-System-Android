@@ -22,11 +22,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
+import org.joda.time.DateTime;
+import org.joda.time.Years;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreateAssemblyCandidateActivity extends AppCompatActivity {
 
@@ -296,11 +297,12 @@ public class CreateAssemblyCandidateActivity extends AppCompatActivity {
         });
     }
 
-    public static int calculateAge(LocalDate birthDate) {
+    public static int calculateAge(Date birthDate) {
 
         if (birthDate != null) {
 
-            return Period.between(birthDate, LocalDate.now()).getYears();
+//            return Period.between(birthDate, LocalDate.now()).getYears();
+            return Years.yearsBetween(new DateTime(birthDate), new DateTime()).getYears();
 
         } else {
 
@@ -332,7 +334,8 @@ public class CreateAssemblyCandidateActivity extends AppCompatActivity {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, day);
 
-            EnterAge.setText(String.valueOf(calculateAge(calendar.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())));
+//            EnterAge.setText(String.valueOf(calculateAge(calendar.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())));
+            EnterAge.setText(String.valueOf(calculateAge(calendar.getTime())));
         };
 
         Calendar cal = Calendar.getInstance();
