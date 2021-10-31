@@ -5,4 +5,8 @@
         <item name="colorPrimary">@color/black_dark</item>
         <item name="colorPrimaryDark">@color/black_dark</item>
     </style>
+
+    <style name="Theme.OnlineVotingSystem.ActionBar" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:background">@color/black_dark</item>
+    </style>
 </resources>

@@ -6,6 +6,11 @@
         <item name="colorPrimaryDark">@color/black_light</item>
         <item name="colorAccent">@color/white</item>
         <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/Theme.OnlineVotingSystem.ActionBar</item>
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
+    </style>
+
+    <style name="Theme.OnlineVotingSystem.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_light</item>
     </style>
 </resources>
