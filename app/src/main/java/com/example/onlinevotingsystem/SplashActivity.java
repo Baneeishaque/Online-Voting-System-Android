@@ -22,7 +22,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
 
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 

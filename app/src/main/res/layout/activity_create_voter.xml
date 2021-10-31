@@ -52,7 +52,7 @@
             android:inputType="textPersonName"
             android:padding="@dimen/_8dp"
             android:text=""
-            android:textCursorDrawable="@color/black"
+            android:textCursorDrawable="@color/black_dark"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/VoterName"
             app:layout_constraintRight_toRightOf="parent"
@@ -85,7 +85,7 @@
             android:inputType="textMultiLine"
             android:minLines="2"
             android:padding="@dimen/_8dp"
-            android:textCursorDrawable="@color/black"
+            android:textCursorDrawable="@color/black_dark"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/Address"
             app:layout_constraintRight_toRightOf="parent"
@@ -156,7 +156,7 @@
             android:inputType="none"
             android:padding="@dimen/_8dp"
             android:textColor="#000000"
-            android:textCursorDrawable="@color/black"
+            android:textCursorDrawable="@color/black_dark"
             android:textSize="18sp"
             android:textStyle="bold"
             app:backgroundTint="#11000000"
@@ -199,7 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:buttonTint="@color/black"
+                android:buttonTint="@color/black_dark"
                 android:text="M" />
 
             <RadioButton
@@ -207,7 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:buttonTint="@color/black"
+                android:buttonTint="@color/black_dark"
                 android:text="F" />
 
             <RadioButton
@@ -215,7 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:buttonTint="@color/black"
+                android:buttonTint="@color/black_dark"
                 android:text="Ot." />
 
         </RadioGroup>
@@ -246,7 +246,7 @@
             android:inputType="number"
             android:maxLength="10"
             android:padding="@dimen/_8dp"
-            android:textCursorDrawable="@color/black"
+            android:textCursorDrawable="@color/black_dark"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/MobileNumber"
             app:layout_constraintRight_toRightOf="parent"
@@ -279,7 +279,7 @@
             android:ems="10"
             android:inputType="text"
             android:padding="@dimen/_8dp"
-            android:textCursorDrawable="@color/black"
+            android:textCursorDrawable="@color/black_dark"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/VoterId"
             app:layout_constraintRight_toRightOf="parent"
@@ -313,7 +313,7 @@
             android:inputType="number"
             android:maxLength="12"
             android:padding="@dimen/_8dp"
-            android:textCursorDrawable="@color/black"
+            android:textCursorDrawable="@color/black_dark"
             app:backgroundTint="#11000000"
             app:layout_constraintLeft_toRightOf="@id/AadharNumber"
             app:layout_constraintRight_toRightOf="parent"

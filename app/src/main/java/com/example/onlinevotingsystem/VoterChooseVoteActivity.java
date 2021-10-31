@@ -29,8 +29,7 @@ public class VoterChooseVoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voter_choose_vote);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
-        if (getSupportActionBar() != null) getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        if (getSupportActionBar() != null) getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.design_default_color_primary)));
 
         progressBar = findViewById(R.id.progressBar);
 

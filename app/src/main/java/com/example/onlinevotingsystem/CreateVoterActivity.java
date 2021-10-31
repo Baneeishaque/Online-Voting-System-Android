@@ -72,8 +72,7 @@ public class CreateVoterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_voter);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(CreateVoterActivity.this, R.color.colorAccent));
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.design_default_color_primary)));
 
         VoterForm = findViewById(R.id.VoterForm);
         VoterName = findViewById(R.id.VoterName);

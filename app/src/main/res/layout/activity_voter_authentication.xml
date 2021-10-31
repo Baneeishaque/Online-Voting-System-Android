@@ -83,7 +83,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:backgroundTint="@color/black"
+            app:backgroundTint="@color/black_dark"
             app:cornerRadius="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

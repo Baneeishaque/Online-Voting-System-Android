@@ -34,9 +34,8 @@ public class AdminAuthenticationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_authentication);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
         if (getSupportActionBar() != null)
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.design_default_color_primary)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mFirebaseAuth = FirebaseAuth.getInstance();

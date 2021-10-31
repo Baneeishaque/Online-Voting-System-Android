@@ -34,9 +34,8 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
 
         otp = getIntent().getIntExtra("otp", 0);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent));
         if (getSupportActionBar() != null)
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorAccent)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.design_default_color_primary)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // TODO : Auto Read Otp
