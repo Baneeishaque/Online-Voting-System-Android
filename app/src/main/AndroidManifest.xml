@@ -8,7 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineVotingSystem">
-        <activity android:name=".TimeConfigurationActivity"></activity>
+        <activity android:name=".TimeConfigurationActivity" />
         <activity android:name=".ChooseResultActivity" />
         <activity android:name=".VoterChooseVoteActivity" />
         <activity android:name=".ChooseAssemblyResultsActivity" />
@@ -17,8 +17,7 @@
         <activity android:name=".VoterOtpAuthenticationActivity" />
         <activity android:name=".CreateAssemblyCandidateActivity" />
         <activity android:name=".CreateParlimentCandidateActivity" />
-        <activity
-            android:name=".CreateVoterActivity" ></activity>
+        <activity android:name=".CreateVoterActivity" />
         <activity android:name=".AdminHomeActivity" />
         <activity
             android:name=".AdminLoginActivity"
