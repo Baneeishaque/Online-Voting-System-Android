@@ -42,7 +42,7 @@ captures/
 #*.iml
 .idea/workspace.xml
 .idea/tasks.xml
-# .idea/gradle.xml
+.idea/gradle.xml
 .idea/assetWizardSettings.xml
 # .idea/dictionaries
 .idea/libraries
@@ -139,7 +139,7 @@ obj/
 .idea/.name
 #.idea/compiler.xml
 .idea/copyright/profiles_settings.xml
-# .idea/encodings.xml
+.idea/encodings.xml
 .idea/misc.xml
 .idea/scopes/scope_settings.xml
 # .idea/vcs.xml
@@ -380,11 +380,5 @@ gradle-app.setting
 
 # End of https://www.gitignore.io/api/java,linux,macos,gradle,android,windows,intellij,notepadpp,androidstudio,visualstudiocode
 
-.idea/gradle.xml
-#.idea/vcs.xml
 .idea/codeStyles/Project.xml
-.idea/encodings.xml
-#.idea/misc.xml
-
-# /android-studio-config
-# /chrome-config
+.idea/deploymentTargetDropDown.xml
