@@ -14,7 +14,6 @@ import com.mukesh.OtpView;
 
 import org.json.JSONException;
 
-
 import java.util.Random;
 
 public class VoterOtpAuthenticationActivity extends AppCompatActivity {
@@ -79,7 +78,7 @@ public class VoterOtpAuthenticationActivity extends AppCompatActivity {
         });
         findViewById(R.id.buttonRegenerateOtp).setOnClickListener(v -> {
 
-            otp = new Random().nextInt(((999999+1) - 100000) + 1) + 100000;
+            otp = new Random().nextInt(((999999 + 1) - 100000) + 1) + 100000;
             Toast.makeText(getApplicationContext(), "Otp : " + otp, Toast.LENGTH_SHORT).show();
 
             ProgressBar progressBar = findViewById(R.id.progressBar);
