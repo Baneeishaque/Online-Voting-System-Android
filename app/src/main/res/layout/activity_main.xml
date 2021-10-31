@@ -42,7 +42,8 @@
             android:drawableEnd="@drawable/admin"
             android:padding="18dp"
             android:text="@string/admin"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:targetApi="21" />
 
         <Button
             android:id="@+id/button_voter"
