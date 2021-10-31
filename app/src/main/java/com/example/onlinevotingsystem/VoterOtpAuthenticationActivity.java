@@ -1,25 +1,20 @@
 package com.example.onlinevotingsystem;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.mukesh.OtpView;
 
 import org.json.JSONException;
 
-import java.util.Objects;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class VoterOtpAuthenticationActivity extends AppCompatActivity {
