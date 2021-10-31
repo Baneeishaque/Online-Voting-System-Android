@@ -287,12 +287,12 @@ public class CreateAssemblyCandidateActivity extends AppCompatActivity {
                     assemblyCandidatesNode.child(assemblyName).child(voterId).setValue(info);
                     //TODO : Reset from after submission
                     Toast.makeText(CreateAssemblyCandidateActivity.this, "Candidate added successfully", Toast.LENGTH_SHORT).show();
-                    Log.d(ApplicationSpecification.name, "info : " + info.toString());
+                    Log.d(ApplicationSpecification.name, "info : " + info);
 
                 } catch (Exception e) {
 
                     Toast.makeText(CreateAssemblyCandidateActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                    Log.d(ApplicationSpecification.name, "Exception : " + e.toString());
+                    Log.d(ApplicationSpecification.name, "Exception : " + e);
                 }
             }
         });
