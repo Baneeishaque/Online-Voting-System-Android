@@ -10,7 +10,7 @@ android {
     defaultConfig {
 
         applicationId "com.example.onlinevotingsystem"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
@@ -48,11 +48,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.google.firebase:firebase-core:20.1.2'
-    implementation 'com.google.firebase:firebase-auth:21.0.6'
+    implementation 'com.google.firebase:firebase-core:21.1.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.7'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
-    implementation 'com.google.firebase:firebase-messaging:23.0.6'
+    implementation 'com.google.firebase:firebase-messaging:23.0.7'
     implementation 'com.google.firebase:firebase-database:20.0.5'
 
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.2'
