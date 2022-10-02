@@ -39,7 +39,7 @@ steps:
   #     path: $(Build.SourcesDirectory)/build
   #   displayName: Project Specific Build Folder Cache
 
-  - task: JavaToolInstaller@0
+  - task: JavaToolInstaller@0.211.0
     inputs:
       versionSpec: '11'
       jdkArchitectureOption: 'x64'
